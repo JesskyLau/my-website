@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000" fill="none">
+  <defs>
+    <radialGradient id="glowBg" cx="50%" cy="46%" r="52%">
+      <stop offset="0%" stop-color="#00f0ff" stop-opacity=".16"/>
+      <stop offset="38%" stop-color="#7000ff" stop-opacity=".10"/>
+      <stop offset="100%" stop-color="#0d0d11" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bodyStroke" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00f0ff"/>
+      <stop offset="55%" stop-color="#a9b1ff"/>
+      <stop offset="100%" stop-color="#7000ff"/>
+    </linearGradient>
+    <linearGradient id="bodyFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1c28"/>
+      <stop offset="100%" stop-color="#101018"/>
+    </linearGradient>
+    <radialGradient id="lensFill" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0b1c22"/>
+      <stop offset="55%" stop-color="#041317"/>
+      <stop offset="100%" stop-color="#020608"/>
+    </radialGradient>
+    <radialGradient id="lensGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00f0ff" stop-opacity=".75"/>
+      <stop offset="62%" stop-color="#00f0ff" stop-opacity=".10"/>
+      <stop offset="100%" stop-color="#00f0ff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softGlow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="12" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <circle cx="500" cy="460" r="430" fill="url(#glowBg)"/>
+
+  <path d="M300 335 C300 205 400 158 500 158 C600 158 700 205 700 335" stroke="#23242f" stroke-width="46" stroke-linecap="round"/>
+  <path d="M300 335 C300 205 400 158 500 158 C600 158 700 205 700 335" stroke="#35374a" stroke-width="14" stroke-linecap="round" opacity=".6"/>
+
+  <path d="M172 470 L104 470" stroke="url(#bodyStroke)" stroke-width="26" stroke-linecap="round"/>
+  <path d="M828 470 L896 470" stroke="url(#bodyStroke)" stroke-width="26" stroke-linecap="round"/>
+
+  <rect x="170" y="330" width="660" height="280" rx="92" fill="url(#bodyFill)" stroke="url(#bodyStroke)" stroke-width="7"/>
+
+  <path d="M452 610 L548 610 L500 556 Z" fill="#0d0d11"/>
+
+  <g filter="url(#softGlow)">
+    <circle cx="378" cy="470" r="110" fill="url(#lensFill)" stroke="#00f0ff" stroke-width="5"/>
+    <circle cx="622" cy="470" r="110" fill="url(#lensFill)" stroke="#00f0ff" stroke-width="5"/>
+  </g>
+  <circle cx="378" cy="470" r="110" fill="url(#lensGlow)"/>
+  <circle cx="622" cy="470" r="110" fill="url(#lensGlow)"/>
+
+  <ellipse cx="330" cy="406" rx="36" ry="20" transform="rotate(-32 330 406)" fill="#aefcff" opacity=".38"/>
+  <ellipse cx="574" cy="406" rx="36" ry="20" transform="rotate(-32 574 406)" fill="#aefcff" opacity=".38"/>
+</svg>
