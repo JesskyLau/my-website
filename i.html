@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jessky Lau | VR & Game Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0d11;--panel:#16161e;--text:#f4f6ff;--muted:#9ea5b8;--cyan:#00f0ff;--violet:#7000ff;--gold:#ffb800;--line:rgba(200,215,255,.15);--w:1180px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:14px Inter,sans-serif;overflow-x:hidden;cursor:none}body:before{content:'';position:fixed;inset:0;z-index:-2;background:linear-gradient(rgba(0,240,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,240,255,.035) 1px,transparent 1px);background-size:48px 48px;mask-image:linear-gradient(#000,transparent 70%)}a{text-decoration:none;color:inherit}.wrap{width:min(calc(100% - 48px),var(--w));margin:auto}.cursor{position:fixed;width:14px;height:14px;border:1px solid var(--cyan);border-radius:50%;pointer-events:none;z-index:100;transform:translate(-50%,-50%);mix-blend-mode:screen}.cursor:before,.cursor:after{content:'';position:absolute;background:var(--cyan)}.cursor:before{width:22px;height:1px;left:-5px;top:6px}.cursor:after{height:22px;width:1px;top:-5px;left:6px}.nav{position:fixed;inset:0 0 auto;z-index:10;height:76px;padding:0 max(24px,calc((100vw - var(--w))/2));display:flex;align-items:center;justify-content:space-between;background:linear-gradient(#0d0d11e8,#0d0d1100);backdrop-filter:blur(8px)}.brand{font:600 15px 'Space Grotesk';letter-spacing:.12em}.brand i{color:var(--cyan);font-style:normal}.links{display:flex;list-style:none;gap:25px}.links a{font-size:11px;color:var(--muted);letter-spacing:.08em}.links a:hover{color:var(--cyan)}.actions{display:flex;align-items:center;gap:13px}.lang{border:1px solid var(--line);border-radius:18px;padding:3px;display:flex}.lang button{border:0;color:var(--muted);background:transparent;border-radius:13px;padding:4px 8px;font:600 10px Inter;cursor:pointer}.lang .on{background:var(--cyan);color:#061416}.cv,.button{border:1px solid var(--cyan);color:var(--cyan);font-size:11px;letter-spacing:.07em;padding:10px 14px;transition:.2s}.cv:hover,.button.primary{background:var(--cyan);color:#071215;box-shadow:0 0 25px #00f0ff55}.hero{min-height:100vh;display:grid;align-items:center;position:relative;isolation:isolate}.hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1}.hero-content{padding-top:65px;max-width:900px}.eyebrow,.kicker{color:var(--cyan);font-size:11px;letter-spacing:.17em;text-transform:uppercase}.eyebrow:before{content:'— ';}.hero h1{font:600 clamp(45px,8vw,102px)/.96 'Space Grotesk';letter-spacing:-.06em;margin:22px 0}.hero h1 span{display:block}.hero h1 span:last-child{background:linear-gradient(95deg,var(--cyan),#a9b1ff 48%,var(--violet));color:transparent;-webkit-background-clip:text;text-shadow:0 0 35px #00f0ff2a}.typed{font:500 clamp(16px,2vw,21px) 'Space Grotesk';min-height:1.5em}.typed:after{content:'_';color:var(--cyan);animation:blink .8s infinite}.hero p{max-width:530px;color:var(--muted);line-height:1.75;font-size:15px;margin:21px 0 30px}.buttons{display:flex;gap:13px;flex-wrap:wrap}.button{display:inline-block}.button:not(.primary):hover{border-color:var(--cyan);color:var(--cyan);transform:translateY(-2px)}section{padding:110px 0;border-top:1px solid var(--line)}.head{display:flex;justify-content:space-between;align-items:end;margin-bottom:37px}.head h2{font:600 clamp(31px,4vw,52px)/1 'Space Grotesk';letter-spacing:-.045em;margin:10px 0 0}.no{color:#ffffff30;font:500 13px 'Space Grotesk'}.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}.filter{padding:9px 13px;border:1px solid var(--line);color:var(--muted);background:none;font:500 11px Inter;cursor:pointer}.filter:hover,.filter.active{border-color:var(--cyan);color:var(--cyan);background:#00f0ff0d}.projects{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.project{background:var(--panel);border:1px solid var(--line);min-height:390px;overflow:hidden;position:relative;transform-style:preserve-3d;transition:transform .14s,box-shadow .2s;cursor:pointer}.project.hide{display:none}.project:hover{box-shadow:0 18px 45px #0008,0 0 0 1px #00f0ff88}.visual{height:210px;position:relative;overflow:hidden;background:linear-gradient(135deg,#16344b,#281747)}.visual:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 72% 27%,var(--c),transparent 7%),radial-gradient(circle,transparent 25%,#0006 77%),repeating-linear-gradient(125deg,transparent 0 27px,#ffffff0a 28px)}.visual:after{content:attr(data-code);position:absolute;left:18px;bottom:15px;font:600 20px 'Space Grotesk';letter-spacing:-.05em}.project-info{padding:21px}.meta{font-size:10px;letter-spacing:.12em;color:var(--cyan)}.project h3{font:600 22px 'Space Grotesk';margin:9px 0}.project p{font-size:12px;color:var(--muted);line-height:1.65;margin:0 0 15px}.tag{display:inline-block;font-size:9px;border:1px solid var(--line);padding:5px 7px;margin:0 4px 3px 0;color:#cbd0df}.view{position:absolute;right:18px;bottom:18px;color:var(--cyan);font-size:11px;opacity:0;transition:.2s}.project:hover .view{opacity:1}.skills{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}.panel{background:#16161eb8;border:1px solid var(--line);padding:31px;backdrop-filter:blur(10px)}.skill-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.skill{border:1px solid var(--line);padding:16px;min-height:103px;transition:.2s}.skill:hover{border-color:var(--cyan);background:#00f0ff0c;transform:translateY(-3px)}.icon{font:600 21px 'Space Grotesk';color:var(--cyan);margin-bottom:24px}.skill b{font-size:12px;display:block}.skill small{color:var(--muted);font-size:10px}.panel h3{font:600 29px 'Space Grotesk';margin:12px 0}.panel p{color:var(--muted);line-height:1.8}.stats{border-top:1px solid var(--line);display:flex}.stats div{width:50%;padding:18px 0}.stats div+div{border-left:1px solid var(--line);padding-left:18px}.stats b{font:600 30px 'Space Grotesk';color:var(--gold);display:block}.stats small{color:var(--muted);font-size:10px}.about{display:grid;grid-template-columns:1fr 1.15fr;gap:60px}.about h2{font:500 clamp(25px,3vw,38px)/1.25 'Space Grotesk';letter-spacing:-.04em;margin:13px 0}.about h2 em{color:var(--cyan);font-style:normal}.about p{color:var(--muted);line-height:1.8;margin:0 0 25px}.cred{border-top:1px solid var(--line);padding:17px 0;display:flex;gap:15px}.cred b{font:500 11px 'Space Grotesk';color:var(--cyan);min-width:70px}.cred div{font-size:13px}.cred small{display:block;color:var(--muted);margin-top:4px}.contact{text-align:center}.contact-box{padding:clamp(35px,7vw,78px);background:linear-gradient(120deg,#00f0ff16,#7000ff15);border:1px solid #00f0ff55}.contact h2{font:600 clamp(35px,5vw,68px)/1 'Space Grotesk';letter-spacing:-.05em;margin:13px 0 22px}.contact p{color:var(--muted);margin-bottom:29px}.footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-size:11px}.footer .wrap{display:flex;justify-content:space-between}.social a{margin-left:16px}.social a:hover{color:var(--cyan)}dialog{width:min(670px,calc(100% - 32px));background:#16161e;color:var(--text);border:1px solid #00f0ff88;box-shadow:0 25px 80px #000;padding:34px}dialog::backdrop{background:#000b;backdrop-filter:blur(5px)}.close{float:right;border:0;background:none;color:var(--cyan);font-size:25px;cursor:pointer}.modal-k{font-size:10px;color:var(--cyan);letter-spacing:.15em}.modal h3{font:600 34px 'Space Grotesk';margin:10px 0}.modal p{color:var(--muted);line-height:1.75}.flow{margin-top:25px;border:1px solid var(--line);padding:17px;display:flex;align-items:center;justify-content:space-between;color:var(--cyan);font:500 11px 'Space Grotesk'}.flow span{border:1px solid var(--line);padding:10px;flex:1}.flow i{color:var(--gold);font-style:normal;padding:6px}@keyframes blink{50%{opacity:0}}@media(max-width:800px){body{cursor:auto}.cursor{display:none}.links,.cv{display:none}.hero{min-height:760px}.projects,.skills,.about{grid-template-columns:1fr;gap:28px}.no{display:none}.skill-grid{grid-template-columns:repeat(2,1fr)}.footer .wrap{flex-direction:column;gap:16px}.social a:first-child{margin-left:0}}@media(max-width:460px){.wrap{width:calc(100% - 32px)}.hero h1{font-size:44px}.panel{padding:18px}.flow{flex-direction:column}.flow i{transform:rotate(90deg)}}
+</style>
+<style>
+.mail-dialog{padding:0}.mail-form{padding:34px}.mail-form label{display:block;color:#cfd4e4;font-size:11px;letter-spacing:.08em;margin:18px 0 7px}.mail-form input,.mail-form textarea{width:100%;background:#0d0d11;border:1px solid var(--line);color:var(--text);padding:12px;font:13px Inter;outline:0}.mail-form input:focus,.mail-form textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #00f0ff12}.mail-form textarea{min-height:130px;resize:vertical}.recipient{border:1px solid #00f0ff55;background:#00f0ff0d;padding:13px;color:var(--cyan);font:500 14px 'Space Grotesk'}.mail-submit{margin-top:21px;background:var(--cyan);color:#061316;cursor:pointer}.mail-status{margin:12px 0 0;color:var(--gold);font-size:12px;min-height:16px}
+</style>
+<style>
+.hero{background:url('vr-bg.svg') no-repeat right -30px center/auto 78%}
+@media(max-width:800px){.hero{background:none;min-height:760px;align-items:start}.hero-content{padding-top:104px}.hero:before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:url('vr-bg.svg') no-repeat center 50%/auto 56%;opacity:.4}.hero h1{font-size:clamp(40px,10vw,54px);line-height:1.04;margin:16px 0}.hero p{font-size:14px;margin:16px 0 24px}}
+.resume-dialog{width:min(960px,calc(100% - 24px));height:min(92vh,900px);padding:0;background:#0d0d11;border:1px solid #00f0ff88;box-shadow:0 25px 80px #000;overflow:hidden}.resume-dialog[open]{display:flex;flex-direction:column}.resume-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-bottom:1px solid var(--line)}.resume-bar .close{float:none;font-size:28px;line-height:1}.resume-frame{flex:1;width:100%;min-height:0;border:0;background:#fff}.resume-foot{display:flex;justify-content:center;padding:12px 18px;border-top:1px solid var(--line)}.resume-foot .button{cursor:pointer}
+</style>
+</head>
+<body>
+<div class="cursor">
+</div>
+<nav class="nav">
+<a class="brand" href="#home">JESSKY<i>.</i>DEV</a>
+<ul class="links">
+<li>
+<a href="#about" data-t="about">关于我</a>
+</li>
+<li>
+<a href="#projects" data-t="projects">项目作品</a>
+</li>
+<li>
+<a href="#skills" data-t="skills">技术栈</a>
+</li>
+<li>
+<a href="#contact" data-t="contact">联系方式</a>
+</li>
+</ul>
+<div class="actions">
+<div class="lang">
+<button class="on" data-l="zh">CN</button>
+<button data-l="en">EN</button>
+</div>
+<a class="cv" href="CV.pdf" id="openResume" data-t="resume">获取简历</a>
+</div>
+</nav>
+<main>
+<section class="hero" id="home">
+<canvas>
+</canvas>
+<div class="wrap hero-content">
+<div class="eyebrow" data-t="identity">虚拟现实开发者</div>
+<h1>
+<span data-t="hero1">构建下一代</span>
+<span data-t="hero2">沉浸式世界</span>
+</h1>
+<div class="typed" data-t="typed">VR · GAMEPLAY · REAL-TIME 3D</div>
+<p data-t="desc">专注于虚拟现实交互、游戏机制与实时图形技术，以引擎思维把概念转化为可感知的体验。</p>
+<div class="buttons">
+<a class="button primary" href="#projects" data-t="work">探索作品 ↗</a>
+<a class="button" href="#contact" data-t="talk">发起连接</a>
+</div>
+</div>
+</section>
+<section id="projects">
+<div class="wrap">
+<div class="head">
+<div>
+<div class="kicker">01 / <span data-t="featured">精选项目</span>
+</div>
+<h2 data-t="projecttitle">作品的每一帧，都有目的。</h2>
+</div>
+<div class="no">SELECTED / 2024—26</div>
+</div>
+<div class="filters">
+<button class="filter active" data-f="all" data-t="all">全部项目</button>
+<button class="filter" data-f="vr" data-t="vr">VR 交互体验</button>
+<button class="filter" data-f="game" data-t="game">游戏 Demo</button>
+<button class="filter" data-f="graphics" data-t="graphics">3D 图形渲染</button>
+</div>
+<div class="projects">
+<article class="project" data-c="vr" data-p="0">
+<div class="visual" style="--c:#00f0ff" data-code="01 // NEURAL ROOM">
+</div>
+<div class="project-info">
+<div class="meta">VR INTERACTION / 2025</div>
+<h3>Neural Room</h3>
+<p data-t="p1">面向 Pico 平台的沉浸式空间叙事与手势交互体验。</p>
+<span class="tag">Unity</span>
+<span class="tag">OpenXR</span>
+<span class="tag">C#</span>
+</div>
+<span class="view" data-t="detail">查看拆解 →</span>
+</article>
+<article class="project" data-c="game" data-p="1">
+<div class="visual" style="--c:#7000ff" data-code="02 // ECHO PROTOCOL">
+</div>
+<div class="project-info">
+<div class="meta">GAMEPLAY SYSTEM / 2025</div>
+<h3>Echo Protocol</h3>
+<p data-t="p2">以声波为核心机制的科幻解谜原型，强调反馈与节奏。</p>
+<span class="tag">Unreal Engine 5</span>
+<span class="tag">C++</span>
+<span class="tag">Blueprint</span>
+</div>
+<span class="view" data-t="detail">查看拆解 →</span>
+</article>
+<article class="project" data-c="graphics" data-p="2">
+<div class="visual" style="--c:#ffb800" data-code="03 // LUMEN FIELD">
+</div>
+<div class="project-info">
+<div class="meta">REAL-TIME GRAPHICS / 2024</div>
+<h3>Lumen Field</h3>
+<p data-t="p3">实时体积光与程序化地形的视觉研究项目。</p>
+<span class="tag">Shader</span>
+<span class="tag">HLSL</span>
+<span class="tag">Blender</span>
+</div>
+<span class="view" data-t="detail">查看拆解 →</span>
+</article>
+</div>
+</div>
+</section>
+<section id="skills">
+<div class="wrap">
+<div class="head">
+<div>
+<div class="kicker">02 / <span data-t="tech">技术与引擎</span>
+</div>
+<h2 data-t="skilltitle">让想象稳定运行。</h2>
+</div>
+<div class="no">SYSTEMS / TOOLS</div>
+</div>
+<div class="skills">
+<div class="panel">
+<div class="skill-grid">
+<div class="skill">
+<div class="icon">U</div>
+<b>Unity</b>
+<small>XR · Gameplay</small>
+</div>
+<div class="skill">
+<div class="icon">UE</div>
+<b>Unreal Engine 5</b>
+<small>C++ · Blueprint</small>
+</div>
+<div class="skill">
+<div class="icon">◇</div>
+<b>Blender</b>
+<small>Modeling · Assets</small>
+</div>
+<div class="skill">
+<div class="icon">fx</div>
+<b>Shaders</b>
+<small>HLSL · VFX</small>
+</div>
+<div class="skill">
+<div class="icon">C#</div>
+<b>C# / C++</b>
+<small>Architecture</small>
+</div>
+<div class="skill">
+<div class="icon">⌘</div>
+<b>Git</b>
+<small>Version Control</small>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="kicker" data-t="mindset">引擎思维</div>
+<h3 data-t="enginetitle">体验、性能、可扩展性。</h3>
+<p data-t="enginedesc">从交互原型到可维护的游戏系统：以玩家感受为起点，以清晰架构和运行效率为落点。</p>
+<div class="stats">
+<div>
+<b>XR</b>
+<small data-t="stat1">沉浸式交互</small>
+</div>
+<div>
+<b>60</b>
+<small data-t="stat2">FPS 设计基准</small>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="about">
+<div class="wrap about">
+<div>
+<div class="kicker">03 / <span data-t="about">关于我</span>
+</div>
+<h2 data-t="abouttitle">我相信好的虚拟世界，来自<em>真实的感受</em>。</h2>
+</div>
+<div>
+<p data-t="aboutdesc">我是 Jessky Lau，一名专注于虚拟现实技术应用的开发者。我的工作横跨交互设计、游戏玩法与实时图形；始终好奇，怎样让一个系统不止“能用”，更能让人愿意停留其中。</p>
+<div class="cred">
+<b>FOCUS_01</b>
+<div data-t="cred1">虚拟现实技术应用<small>Virtual Reality Technology & Application</small>
+</div>
+</div>
+<div class="cred">
+<b>FOCUS_02</b>
+<div data-t="cred2">游戏机制与交互系统<small>Gameplay Mechanics & Interaction Systems</small>
+</div>
+</div>
+<div class="cred">
+<b>FOCUS_03</b>
+<div data-t="cred3">实时 3D 图形<small>Real-time 3D Graphics</small>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="contact" id="contact">
+<div class="wrap">
+<div class="contact-box">
+<div class="kicker" data-t="open">开放合作</div>
+<h2 data-t="contacttitle">下一个世界，<br>一起构建。</h2>
+<p data-t="contactdesc">无论是 VR 体验、游戏原型，或实时视觉实验，欢迎来聊。</p>
+<button class="button primary" id="openMail" type="button" data-t="email">发送邮件 ↗</button>
+</div>
+</div>
+</section>
+</main>
+<footer class="footer">
+<div class="wrap">
+<span>© 2026 JESSKY LAU. ALL SYSTEMS NOMINAL.</span>
+<div class="social">
+<a href="#">GitHub</a>
+<a href="#">ArtStation</a>
+<a href="#">Bilibili</a>
+<a href="#">LinkedIn</a>
+</div>
+</div>
+</footer>
+<dialog id="projectDialog">
+<div class="modal">
+<button class="close">×</button>
+<div class="modal-k">PROJECT BREAKDOWN</div>
+<h3>
+</h3>
+<p>
+</p>
+<div class="flow">
+<span>INPUT</span>
+<i>→</i>
+<span>SYSTEM</span>
+<i>→</i>
+<span>EXPERIENCE</span>
+</div>
+</div>
+</dialog>
+<dialog class="mail-dialog" id="mailDialog">
+<form class="mail-form" id="mailForm">
+<button class="close" type="button" id="closeMail" aria-label="关闭">×</button>
+<div class="modal-k">NEW MESSAGE</div>
+<h3 style="font:600 30px 'Space Grotesk';margin:10px 0 22px">发送一封邮件</h3>
+<label>收件人</label><div class="recipient">laujessky@gmail.com</div>
+<label for="senderName">你的姓名</label><input id="senderName" name="name" autocomplete="name" required>
+<label for="senderEmail">你的邮箱</label><input id="senderEmail" name="email" type="email" autocomplete="email" required>
+<label for="message">留言内容</label><textarea id="message" name="message" required></textarea>
+<button class="button mail-submit" type="submit">打开邮件客户端 ↗</button><p class="mail-status" aria-live="polite"></p>
+</form>
+</dialog>
+<dialog class="resume-dialog" id="resumeDialog">
+<div class="resume-bar">
+<span class="modal-k">RESUME / JESSKY LAU</span>
+<button class="close" id="closeResume" type="button" aria-label="关闭">×</button>
+</div>
+<iframe class="resume-frame" src="CV.pdf" title="Jessky Lau CV"></iframe>
+<div class="resume-foot">
+<button class="button primary" id="backHome" type="button">返回主页</button>
+</div>
+</dialog>
+<script>
+const D={zh:{about:'关于我',projects:'项目作品',skills:'技术栈',contact:'联系方式',resume:'获取简历',identity:'虚拟现实开发者',hero1:'构建下一代',hero2:'沉浸式世界',typed:'VR · GAMEPLAY · REAL-TIME 3D',desc:'专注于虚拟现实交互、游戏机制与实时图形技术，以引擎思维把概念转化为可感知的体验。',work:'探索作品 ↗',talk:'发起连接',featured:'精选项目',projecttitle:'作品的每一帧，都有目的。',all:'全部项目',vr:'VR 交互体验',game:'游戏 Demo',graphics:'3D 图形渲染',p1:'面向 Pico 平台的沉浸式空间叙事与手势交互体验。',p2:'以声波为核心机制的科幻解谜原型，强调反馈与节奏。',p3:'实时体积光与程序化地形的视觉研究项目。',detail:'查看拆解 →',tech:'技术与引擎',skilltitle:'让想象稳定运行。',mindset:'引擎思维',enginetitle:'体验、性能、可扩展性。',enginedesc:'从交互原型到可维护的游戏系统：以玩家感受为起点，以清晰架构和运行效率为落点。',stat1:'沉浸式交互',stat2:'FPS 设计基准',abouttitle:'我相信好的虚拟世界，来自<em>真实的感受</em>。',aboutdesc:'我是 Jessky Lau，一名专注于虚拟现实技术应用的开发者。我的工作横跨交互设计、游戏玩法与实时图形；始终好奇，怎样让一个系统不止“能用”，更能让人愿意停留其中。',cred1:'虚拟现实技术应用<small>Virtual Reality Technology & Application</small>',cred2:'游戏机制与交互系统<small>Gameplay Mechanics & Interaction Systems</small>',cred3:'实时 3D 图形<small>Real-time 3D Graphics</small>',open:'开放合作',contacttitle:'下一个世界，<br>一起构建。',contactdesc:'无论是 VR 体验、游戏原型，或实时视觉实验，欢迎来聊。',email:'发送邮件 ↗'},en:{about:'About',projects:'Projects',skills:'Tech Stack',contact:'Contact',resume:'GET RESUME',identity:'VR & GAME DEVELOPER',hero1:'BUILDING THE NEXT',hero2:'IMMERSIVE WORLDS',typed:'VR · GAMEPLAY · REAL-TIME 3D',desc:'I build virtual-reality interaction, gameplay systems, and real-time graphics—turning ideas into experiences people can feel.',work:'EXPLORE WORK ↗',talk:'START A CONVERSATION',featured:'FEATURED PROJECTS',projecttitle:'Every frame has a purpose.',all:'ALL PROJECTS',vr:'VR EXPERIENCES',game:'GAME DEMOS',graphics:'3D GRAPHICS',p1:'An immersive spatial narrative and hand-interaction experience for Pico.',p2:'A sci-fi puzzle prototype driven by sound waves, feedback, and rhythm.',p3:'A visual study of real-time volumetric light and procedural terrain.',detail:'VIEW BREAKDOWN →',tech:'SKILLS & ENGINES',skilltitle:'Making imagination run smoothly.',mindset:'ENGINEERING MINDSET',enginetitle:'Experience. Performance. Scale.',enginedesc:'From interaction prototypes to maintainable game systems: player feeling first, clean architecture and runtime efficiency always.',stat1:'IMMERSIVE INTERACTION',stat2:'FPS DESIGN TARGET',abouttitle:'Great virtual worlds begin with <em>real feeling</em>.',aboutdesc:'I am Jessky Lau, a developer focused on Virtual Reality Technology & Application. My work spans interaction design, gameplay, and real-time graphics—always asking how a system can be more than usable, and worth inhabiting.',cred1:'Virtual Reality Technology & Application<small>Virtual Reality Technology & Application</small>',cred2:'Gameplay Mechanics & Interaction Systems<small>Gameplay Mechanics & Interaction Systems</small>',cred3:'Real-time 3D Graphics<small>Real-time 3D Graphics</small>',open:'OPEN FOR COLLABORATION',contacttitle:'LET’S BUILD THE<br>NEXT WORLD.',contactdesc:'For VR experiences, game prototypes, and real-time visual experiments—let’s talk.',email:'SEND EMAIL ↗'}};
+function language(l){document.documentElement.lang=l==='zh'?'zh-CN':'en';document.querySelectorAll('[data-t]').forEach(e=>{if(D[l][e.dataset.t])e.innerHTML=D[l][e.dataset.t]});document.querySelectorAll('[data-l]').forEach(b=>b.classList.toggle('on',b.dataset.l===l));localStorage.setItem('lang',l)}document.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>language(b.dataset.l));language(localStorage.getItem('lang')||'zh');
+const cur=document.querySelector('.cursor');addEventListener('pointermove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px'});document.querySelectorAll('.filter').forEach(b=>b.onclick=()=>{document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.project').forEach(p=>p.classList.toggle('hide',b.dataset.f!='all'&&p.dataset.c!=b.dataset.f))});
+const details=[['Neural Room','A hand-tracked VR installation built around spatial presence. Input gestures move through an interaction state machine into adaptive audiovisual feedback.'],['Echo Protocol','A UE5 gameplay prototype where sound is a navigation aid and puzzle language. Modular components make abilities fast to iterate.'],['Lumen Field','A shader and environment study exploring procedural terrain, fog volumes, and readable silhouettes at real-time frame budgets.']],modal=document.querySelector('dialog');document.querySelectorAll('.project').forEach(c=>{c.onmousemove=e=>{let r=c.getBoundingClientRect(),x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;c.style.transform=`perspective(800px) rotateY(${x/r.width*8}deg) rotateX(${-y/r.height*8}deg) translateY(-4px)`};c.onmouseleave=()=>c.style.transform='';c.onclick=()=>{let d=details[c.dataset.p];modal.querySelector('h3').textContent=d[0];modal.querySelector('p').textContent=d[1];modal.showModal()}});document.querySelector('.close').onclick=()=>modal.close();modal.onclick=e=>{if(e.target==modal)modal.close()};
+const mailDialog=document.querySelector('#mailDialog'),mailForm=document.querySelector('#mailForm');document.querySelector('#openMail').onclick=()=>mailDialog.showModal();document.querySelector('#closeMail').onclick=()=>mailDialog.close();mailDialog.onclick=e=>{if(e.target===mailDialog)mailDialog.close()};mailForm.onsubmit=e=>{e.preventDefault();const f=new FormData(mailForm),subject=encodeURIComponent('Portfolio contact from '+f.get('name')),body=encodeURIComponent('Name: '+f.get('name')+'\\nEmail: '+f.get('email')+'\\n\\nMessage:\\n'+f.get('message'));document.querySelector('.mail-status').textContent='正在打开你的邮件客户端…';location.href='mailto:laujessky@gmail.com?subject='+subject+'&body='+body};
+const c=document.querySelector('canvas'),x=c.getContext('2d'),a=[];let mx=0,my=0;function rs(){c.width=innerWidth;c.height=innerHeight}rs();addEventListener('resize',rs);addEventListener('pointermove',e=>{mx=e.clientX;my=e.clientY});for(let i=0;i<45;i++)a.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3});function draw(){x.clearRect(0,0,c.width,c.height);a.forEach((p,i)=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>c.width)p.vx*=-1;if(p.y<0||p.y>c.height)p.vy*=-1;let m=Math.hypot(p.x-mx,p.y-my);if(m<180){p.x+=(p.x-mx)/m*.25;p.y+=(p.y-my)/m*.25}x.fillStyle='#00f0ff';x.globalAlpha=.6;x.fillRect(p.x,p.y,2,2);a.slice(i+1).forEach(q=>{let d=Math.hypot(p.x-q.x,p.y-q.y);if(d<120){x.globalAlpha=(1-d/120)*.13;x.strokeStyle='#00f0ff';x.beginPath();x.moveTo(p.x,p.y);x.lineTo(q.x,q.y);x.stroke()}})});x.globalAlpha=1;requestAnimationFrame(draw)}draw();
+const resumeDialog=document.querySelector('#resumeDialog');document.querySelector('#openResume').onclick=e=>{e.preventDefault();resumeDialog.showModal()};document.querySelector('#closeResume').onclick=()=>resumeDialog.close();document.querySelector('#backHome').onclick=()=>resumeDialog.close();resumeDialog.onclick=e=>{if(e.target===resumeDialog)resumeDialog.close()};
+</script>
+</body>
+</html>
