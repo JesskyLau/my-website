@@ -1,0 +1,1927 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jessky Lau | VR & Game Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d0d11;
+  --panel:#16161e;
+  --text:#f4f6ff;
+  --muted:#9ea5b8;
+  --cyan:#00f0ff;
+  --violet:#7000ff;
+  --gold:#ffb800;
+  --line:rgba(200,215,255,.15);
+  --w:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font:14px Inter,sans-serif;
+  overflow-x:hidden;
+  cursor:default; /* 保持系统鼠标完全可见且清晰 */
+}
+body:before{
+  content:'';
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  background:linear-gradient(rgba(0,240,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,240,255,.035) 1px,transparent 1px);
+  background-size:48px 48px;
+  mask-image:linear-gradient(#000,transparent 70%);
+  pointer-events:none;
+}
+a{text-decoration:none;color:inherit;cursor:pointer}
+button{cursor:pointer;font-family:inherit}
+.wrap{width:min(calc(100% - 48px),var(--w));margin:auto}
+
+/* 顶部导航 */
+.nav{
+  position:fixed;
+  inset:0 0 auto;
+  z-index:10;
+  height:76px;
+  padding:0 max(24px,calc((100vw - var(--w))/2));
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:linear-gradient(#0d0d11e8,#0d0d1100);
+  backdrop-filter:blur(8px);
+}
+.brand{font:600 15px 'Space Grotesk';letter-spacing:.12em}
+.brand i{color:var(--cyan);font-style:normal}
+.links{display:flex;list-style:none;gap:25px;margin:0;padding:0}
+.links a{font-size:11px;color:var(--muted);letter-spacing:.08em;transition:color .2s}
+.links a:hover{color:var(--cyan)}
+.actions{display:flex;align-items:center;gap:13px}
+.lang{border:1px solid var(--line);border-radius:18px;padding:3px;display:flex}
+.lang button{border:0;color:var(--muted);background:transparent;border-radius:13px;padding:4px 8px;font:600 10px Inter;cursor:pointer}
+.lang .on{background:var(--cyan);color:#061416}
+.cv,.button{border:1px solid var(--cyan);color:var(--cyan);font-size:11px;letter-spacing:.07em;padding:10px 14px;transition:.2s;cursor:pointer;display:inline-block}
+.cv:hover,.button.primary{background:var(--cyan);color:#071215;box-shadow:0 0 25px #00f0ff55}
+
+/* HERO SECTION */
+.hero{min-height:100vh;display:grid;align-items:center;position:relative;isolation:isolate}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.hero-content{padding-top:65px;max-width:900px}
+.eyebrow,.kicker{color:var(--cyan);font-size:11px;letter-spacing:.17em;text-transform:uppercase}
+.eyebrow:before{content:'— ';}
+.hero h1{font:600 clamp(45px,8vw,102px)/.96 'Space Grotesk';letter-spacing:-.06em;margin:22px 0}
+.hero h1 span{display:block}
+.hero h1 span:last-child{background:linear-gradient(95deg,var(--cyan),#a9b1ff 48%,var(--violet));color:transparent;-webkit-background-clip:text;text-shadow:0 0 35px #00f0ff2a}
+.typed{font:500 clamp(16px,2vw,21px) 'Space Grotesk';min-height:1.5em}
+.typed:after{content:'_';color:var(--cyan);animation:blink .8s infinite}
+.hero p{max-width:530px;color:var(--muted);line-height:1.75;font-size:15px;margin:21px 0 30px}
+.buttons{display:flex;gap:13px;flex-wrap:wrap}
+.button:not(.primary):hover{border-color:var(--cyan);color:var(--cyan);transform:translateY(-2px)}
+
+/* SECTION 通用样式 */
+section{padding:110px 0;border-top:1px solid var(--line)}
+.head{display:flex;justify-content:space-between;align-items:end;margin-bottom:37px}
+.head h2{font:600 clamp(31px,4vw,52px)/1 'Space Grotesk';letter-spacing:-.045em;margin:10px 0 0}
+.no{color:#ffffff30;font:500 13px 'Space Grotesk'}
+
+/* 筛选器与作品卡片 */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.filter{padding:9px 13px;border:1px solid var(--line);color:var(--muted);background:none;font:500 11px Inter;cursor:pointer;transition:.2s}
+.filter:hover,.filter.active{border-color:var(--cyan);color:var(--cyan);background:#00f0ff0d}
+.projects{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.project{background:var(--panel);border:1px solid var(--line);min-height:390px;overflow:hidden;position:relative;transform-style:preserve-3d;transition:transform .14s,box-shadow .2s;cursor:pointer}
+.project.hide{display:none}
+.project:hover{box-shadow:0 18px 45px #0008,0 0 0 1px #00f0ff88}
+.visual{height:210px;position:relative;overflow:hidden;background:linear-gradient(135deg,#16344b,#281747)}
+.visual:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 72% 27%,var(--c),transparent 7%),radial-gradient(circle,transparent 25%,#0006 77%),repeating-linear-gradient(125deg,transparent 0 27px,#ffffff0a 28px)}
+.visual:after{content:attr(data-code);position:absolute;left:18px;bottom:15px;font:600 20px 'Space Grotesk';letter-spacing:-.05em}
+.project-info{padding:21px}
+.meta{font-size:10px;letter-spacing:.12em;color:var(--cyan)}
+.project h3{font:600 22px 'Space Grotesk';margin:9px 0}
+.project p{font-size:12px;color:var(--muted);line-height:1.65;margin:0 0 15px}
+.tag{display:inline-block;font-size:9px;border:1px solid var(--line);padding:5px 7px;margin:0 4px 3px 0;color:#cbd0df}
+.view{position:absolute;right:18px;bottom:18px;color:var(--cyan);font-size:11px;opacity:0;transition:.2s}
+.project:hover .view{opacity:1}
+
+/* 技术栈 */
+.skills{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
+.panel{background:#16161eb8;border:1px solid var(--line);padding:31px;backdrop-filter:blur(10px)}
+.skill-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.skill{border:1px solid var(--line);padding:16px;min-height:103px;transition:.2s}
+.skill:hover{border-color:var(--cyan);background:#00f0ff0c;transform:translateY(-3px)}
+.icon{font:600 21px 'Space Grotesk';color:var(--cyan);margin-bottom:24px}
+.skill b{font-size:12px;display:block}
+.skill small{color:var(--muted);font-size:10px}
+.panel h3{font:600 29px 'Space Grotesk';margin:12px 0}
+.panel p{color:var(--muted);line-height:1.8}
+.stats{border-top:1px solid var(--line);display:flex}
+.stats div{width:50%;padding:18px 0}
+.stats div+div{border-left:1px solid var(--line);padding-left:18px}
+.stats b{font:600 30px 'Space Grotesk';color:var(--gold);display:block}
+.stats small{color:var(--muted);font-size:10px}
+
+/* 关于我 */
+.about{display:grid;grid-template-columns:1fr 1.15fr;gap:60px}
+.about h2{font:500 clamp(25px,3vw,38px)/1.25 'Space Grotesk';letter-spacing:-.04em;margin:13px 0}
+.about h2 em{color:var(--cyan);font-style:normal}
+.about p{color:var(--muted);line-height:1.8;margin:0 0 25px}
+.cred{border-top:1px solid var(--line);padding:17px 0;display:flex;gap:15px}
+.cred b{font:500 11px 'Space Grotesk';color:var(--cyan);min-width:70px}
+.cred div{font-size:13px}
+.cred small{display:block;color:var(--muted);margin-top:4px}
+
+/* 联系方式 */
+.contact{text-align:center}
+.contact-box{padding:clamp(35px,7vw,78px);background:linear-gradient(120deg,#00f0ff16,#7000ff15);border:1px solid #00f0ff55}
+.contact h2{font:600 clamp(35px,5vw,68px)/1 'Space Grotesk';letter-spacing:-.05em;margin:13px 0 22px}
+.contact p{color:var(--muted);margin-bottom:29px}
+
+/* 页脚 */
+.footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-size:11px}
+.footer .wrap{display:flex;justify-content:space-between}
+.social a{margin-left:16px}
+.social a:hover{color:var(--cyan)}
+
+/* 邮件表单弹窗 */
+.mail-dialog{padding:0;width:min(600px,calc(100% - 32px));background:#16161e;color:var(--text);border:1px solid #00f0ff88;box-shadow:0 25px 80px #000;cursor:default}
+.mail-form{padding:34px}
+.mail-form label{display:block;color:#cfd4e4;font-size:11px;letter-spacing:.08em;margin:18px 0 7px}
+.mail-form input,.mail-form textarea{width:100%;background:#0d0d11;border:1px solid var(--line);color:var(--text);padding:12px;font:13px Inter;outline:0;cursor:text}
+.mail-form input:focus,.mail-form textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #00f0ff12}
+.mail-form textarea{min-height:130px;resize:vertical}
+.recipient{border:1px solid #00f0ff55;background:#00f0ff0d;padding:13px;color:var(--cyan);font:500 14px 'Space Grotesk'}
+.mail-submit{margin-top:21px;background:var(--cyan);color:#061316;cursor:pointer}
+.mail-status{margin:12px 0 0;color:var(--gold);font-size:12px;min-height:16px}
+
+/* 简历 PDF 预览弹窗 */
+.hero{background:url('vr-bg.svg') no-repeat right -30px center/auto 78%}
+.hero-visual-mobile{display:none}
+.hero-text-col{max-width:900px}
+@media(max-width:800px){
+  .nav{padding:0 16px;height:64px}
+  .brand{font-size:14px}
+  .actions{gap:8px}
+  .lang{padding:2px}
+  .lang button{padding:3px 6px;font-size:9.5px}
+  .links{display:none}
+  .cv{
+    display:inline-flex !important;
+    align-items:center;
+    justify-content:center;
+    padding:6px 11px;
+    font-size:10.5px;
+    letter-spacing:0.04em;
+    white-space:nowrap;
+    border-radius:4px;
+  }
+  .hero{
+    background:none;
+    min-height:auto;
+    padding-top:74px;
+    padding-bottom:46px;
+    align-items:center;
+  }
+  .hero:before{display:none}
+  .hero-content{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    padding-top:16px;
+    width:min(calc(100% - 28px),var(--w));
+  }
+  .hero-text-col{
+    flex:1 1 60%;
+    min-width:0;
+  }
+  .hero-visual-mobile{
+    display:flex;
+    flex:0 0 38%;
+    max-width:38%;
+    justify-content:center;
+    align-items:center;
+  }
+  .hero-visual-mobile img{
+    width:100%;
+    max-width:160px;
+    height:auto;
+    display:block;
+    filter:drop-shadow(0 0 20px rgba(0,240,255,0.3));
+  }
+  .eyebrow{font-size:10px;letter-spacing:.12em}
+  .hero h1{font-size:clamp(24px,6.5vw,36px);line-height:1.08;margin:10px 0}
+  .typed{font-size:11px;min-height:auto}
+  .hero p{font-size:12.5px;line-height:1.6;margin:12px 0 18px}
+  .buttons{gap:8px}
+  .button{padding:8px 12px;font-size:10px}
+}
+/* ========================================================
+   交互式高清简历视口 (多级缩放、双指捏合、拖拽平移、原版下载)
+   ======================================================== */
+.resume-dialog{
+  width:min(1040px,calc(100% - 20px));
+  height:min(94vh,920px);
+  padding:0;
+  background:#0d0d12;
+  border:1px solid #00f0ff88;
+  border-radius:10px;
+  box-shadow:0 25px 90px rgba(0,0,0,0.85),0 0 30px rgba(0,240,255,0.15);
+  overflow:hidden;
+  cursor:default;
+}
+.resume-dialog[open]{display:flex;flex-direction:column}
+.resume-dialog::backdrop{background:#000b;backdrop-filter:blur(8px)}
+.resume-bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px 16px;
+  background:#13131c;
+  border-bottom:1px solid var(--line);
+  flex-wrap:wrap;
+}
+.resume-bar .modal-kicker{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font:600 11px 'Space Grotesk';
+  color:var(--cyan);
+  letter-spacing:.12em;
+}
+/* 缩放工具条 */
+.resume-zoom-controls{
+  display:flex;
+  align-items:center;
+  gap:3px;
+  background:#1a1b26;
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:2px 4px;
+}
+.r-zoom-btn{
+  background:transparent;
+  border:0;
+  color:var(--text);
+  font:600 12px 'Space Grotesk',sans-serif;
+  padding:5px 9px;
+  border-radius:4px;
+  cursor:pointer;
+  transition:all .15s;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  line-height:1;
+}
+.r-zoom-btn:hover{background:rgba(0,240,255,0.15);color:var(--cyan)}
+.r-zoom-btn:active{transform:scale(0.94)}
+.r-zoom-display{min-width:46px;font-size:11.5px;color:var(--cyan);text-align:center}
+.r-zoom-action{font-size:11px;padding:5px 8px;border-left:1px solid rgba(255,255,255,0.08)}
+.resume-right-actions{display:flex;align-items:center;gap:8px}
+.r-action-btn{
+  font-size:11.5px;
+  padding:5px 11px;
+  border-radius:5px;
+  border:1px solid var(--line);
+  color:var(--text);
+  text-decoration:none;
+  background:#191a24;
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  transition:all .15s;
+}
+.r-action-btn:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,240,255,0.1)}
+.r-action-btn.primary{background:var(--cyan);color:#061416;font-weight:600;border-color:var(--cyan)}
+.r-action-btn.primary:hover{box-shadow:0 0 15px var(--cyan)}
+/* 简历视口容器 */
+.resume-viewport{
+  flex:1;
+  width:100%;
+  min-height:0;
+  overflow:auto;
+  background:#14141e;
+  background-image:radial-gradient(rgba(255,255,255,0.05) 1px,transparent 1px);
+  background-size:20px 20px;
+  cursor:grab;
+  position:relative;
+  touch-action:pan-x pan-y pinch-zoom;
+  user-select:none;
+  -webkit-user-select:none;
+  display:flex;
+}
+.resume-viewport.grabbing{cursor:grabbing}
+.resume-viewport::-webkit-scrollbar{width:8px;height:8px}
+.resume-viewport::-webkit-scrollbar-track{background:#0e0f15}
+.resume-viewport::-webkit-scrollbar-thumb{background:#262838;border-radius:4px}
+.resume-viewport::-webkit-scrollbar-thumb:hover{background:var(--cyan)}
+.resume-stage{
+  margin:auto;
+  padding:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-width:100%;
+  min-height:100%;
+  box-sizing:border-box;
+}
+.resume-img{
+  display:block;
+  box-shadow:0 18px 60px rgba(0,0,0,0.7),0 0 0 1px rgba(255,255,255,0.12);
+  border-radius:3px;
+  background:#fff;
+  transition:width .12s ease-out;
+  pointer-events:auto;
+  max-width:none;
+}
+/* 简历底部栏 */
+.resume-foot{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 18px;
+  background:#13131c;
+  border-top:1px solid var(--line);
+  flex-wrap:wrap;
+  gap:10px;
+}
+.resume-tip{
+  font-size:11.5px;
+  color:#8b8e9f;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.resume-foot-buttons{display:flex;gap:10px}
+@media(max-width:768px){
+  .resume-dialog{width:96vw;height:95vh}
+  .resume-bar{padding:8px 10px;gap:6px}
+  .resume-bar .modal-kicker{font-size:10px}
+  .r-action-btn{display:none}
+  .resume-zoom-controls{gap:2px}
+  .r-zoom-btn{padding:4px 6px;font-size:11px}
+  .r-zoom-display{min-width:38px;font-size:10.5px}
+  .resume-stage{padding:10px}
+  .resume-tip{font-size:10.5px;width:100%;justify-content:center;text-align:center}
+  .resume-foot{justify-content:center}
+}
+
+/* 视频占位提示卡 */
+.video-placeholder-overlay{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:24px;
+  background:radial-gradient(circle at center, #1b1b2a 0%, #0a0a0f 100%);
+  z-index:5;
+}
+.v-place-icon{
+  font-size:38px;
+  margin-bottom:10px;
+  filter:drop-shadow(0 0 12px var(--cyan));
+}
+.v-place-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:16px;
+  font-weight:700;
+  color:#fff;
+  letter-spacing:1px;
+  margin-bottom:6px;
+}
+.v-place-desc{
+  font-size:12.5px;
+  color:#9da0b5;
+  max-width:480px;
+  line-height:1.6;
+  margin-bottom:16px;
+}
+.v-place-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.v-place-btn{
+  font-size:11.5px;
+  padding:8px 16px;
+  cursor:pointer;
+}
+
+/* ========================================================
+   全新大尺寸作品详情模态框 (视频 + 动态回退 + 深度技术图文)
+   ======================================================== */
+.project-dialog{
+  width:min(1040px,calc(100% - 28px));
+  max-height:92vh;
+  max-height:92dvh;
+  padding:0;
+  background:#14141d;
+  color:var(--text);
+  border:1px solid #00f0ffaa;
+  box-shadow:0 30px 100px #000,0 0 35px rgba(0,240,255,0.2);
+  overflow:hidden;
+  cursor:default; /* 确保弹窗内部光标清晰显示 */
+}
+.project-dialog[open]{display:flex;flex-direction:column}
+.project-dialog::backdrop{background:#000b;backdrop-filter:blur(6px)}
+.modal-bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 22px;
+  background:#171722;
+  border-bottom:1px solid var(--line);
+}
+.modal-kicker{
+  font:600 11px 'Space Grotesk';
+  color:var(--cyan);
+  letter-spacing:.14em;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.modal-close-btn{
+  border:0;
+  background:none;
+  color:var(--cyan);
+  font-size:26px;
+  line-height:1;
+  cursor:pointer;
+  padding:0;
+  transition:transform .2s;
+}
+.modal-close-btn:hover{transform:rotate(90deg);color:#fff}
+
+.modal-content-scroll{
+  flex:1 1 auto;
+  min-height:0;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  padding:22px 28px 36px;
+}
+.modal-content-scroll::-webkit-scrollbar{width:7px}
+.modal-content-scroll::-webkit-scrollbar-track{background:#14141d}
+.modal-content-scroll::-webkit-scrollbar-thumb{background:#2a2b3d;border-radius:4px}
+.modal-content-scroll::-webkit-scrollbar-thumb:hover{background:var(--cyan)}
+
+/* 16:9 实机视频播放器容器 */
+.video-showcase-box{
+  position:relative;
+  width:100%;
+  aspect-ratio:16/9;
+  background:#09090f;
+  border:1px solid var(--line);
+  box-shadow:0 12px 40px rgba(0,0,0,0.7);
+  overflow:hidden;
+  margin-bottom:18px;
+}
+.modal-video-elem{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  background:#000;
+}
+.modal-sim-canvas{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  display:none; /* 回退时显示 */
+}
+.video-status-overlay{
+  position:absolute;
+  top:12px;
+  left:14px;
+  right:14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  pointer-events:none;
+}
+.live-pill{
+  background:rgba(13,13,17,0.85);
+  border:1px solid var(--line);
+  padding:4px 10px;
+  border-radius:4px;
+  font:600 10px 'Space Grotesk';
+  color:var(--cyan);
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  backdrop-filter:blur(4px);
+}
+.live-indicator{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#ff3366;
+  box-shadow:0 0 8px #ff3366;
+  animation:blink .9s infinite;
+}
+
+/* 视频工具条：切换与本地测试 */
+.video-toolbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 14px;
+  background:#161622;
+  border:1px solid var(--line);
+  border-radius:6px;
+  margin-bottom:16px;
+  font-size:11px;
+}
+.v-tab-group{display:flex;gap:8px}
+.v-tab-btn{
+  padding:7px 15px;
+  border:1px solid var(--line);
+  border-radius:4px;
+  background:#171822;
+  color:var(--muted);
+  font:600 11.5px 'Space Grotesk',Inter,sans-serif;
+  cursor:pointer;
+  transition:all .15s ease;
+  user-select:none;
+}
+.v-tab-btn:hover{
+  border-color:rgba(0,240,255,0.5);
+  color:#fff;
+  background:#1e202e;
+}
+.v-tab-btn.active{
+  border-color:var(--cyan) !important;
+  background:var(--cyan) !important;
+  color:#061416 !important;
+  font-weight:700 !important;
+  box-shadow:0 0 16px rgba(0,240,255,0.45) !important;
+}
+.video-upload-btn{
+  color:var(--muted);
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+}
+.video-upload-btn:hover{color:var(--cyan)}
+@media(max-width:600px){
+  .video-toolbar{
+    flex-direction:column;
+    align-items:stretch;
+    gap:8px;
+    padding:8px 10px;
+  }
+  .v-tab-group{
+    width:100%;
+    gap:6px;
+  }
+  .v-tab-btn{
+    flex:1;
+    justify-content:center;
+    text-align:center;
+    padding:6px 6px;
+    font-size:10px;
+  }
+  .video-upload-btn{
+    justify-content:center;
+    font-size:10.5px;
+    padding-top:4px;
+    border-top:1px solid rgba(255,255,255,0.06);
+  }
+}
+
+/* 标题与规格卡片 */
+.modal-heading{margin-bottom:20px}
+.modal-heading h3{font:600 clamp(24px,3vw,32px) 'Space Grotesk';margin:0 0 6px}
+.modal-desc-sub{color:var(--cyan);font-size:13px;line-height:1.6}
+
+.specs-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  padding:15px;
+  background:#171724;
+  border:1px solid var(--line);
+  margin-bottom:26px;
+}
+.spec-col{display:flex;flex-direction:column;gap:4px}
+.spec-col span{font:600 10px 'Space Grotesk';color:var(--cyan);letter-spacing:.08em}
+.spec-col strong{font-size:12px;color:var(--text);font-weight:500}
+
+/* 四维技术档案 */
+.breakdown-list{display:flex;flex-direction:column;gap:16px}
+.breakdown-card{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,0.02);
+  padding:18px 20px;
+}
+.breakdown-card h4{
+  margin:0 0 10px;
+  font:600 13px 'Space Grotesk';
+  color:var(--cyan);
+  letter-spacing:.06em;
+}
+.breakdown-card p{
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.75;
+}
+.breakdown-card p strong{color:#fff}
+
+/* 底部操作条 */
+.modal-foot-actions{
+  margin-top:28px;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
+}
+.modal-links{display:flex;gap:12px}
+
+@keyframes blink{50%{opacity:0}}
+
+@media(max-width:800px){
+  body{cursor:auto}
+  .links{display:none}
+  .projects,.skills,.about{grid-template-columns:1fr;gap:28px}
+  .no{display:none}
+  .skill-grid{grid-template-columns:repeat(2,1fr)}
+  .specs-grid{grid-template-columns:1fr 1fr}
+  .footer .wrap{flex-direction:column;gap:16px}
+  .social a:first-child{margin-left:0}
+}
+@media(max-width:460px){
+  .wrap{width:calc(100% - 24px)}
+  .panel{padding:18px}
+  .specs-grid{grid-template-columns:1fr}
+}
+/* ===== 移动端：作品详情弹窗修复（iOS Safari 弹窗高度塌陷 / 无法滚动） ===== */
+body:has(dialog[open]){overflow:hidden}
+@media(max-width:600px){
+  .project-dialog{
+    width:calc(100% - 16px);
+    max-width:none;
+    height:92vh;
+    height:92dvh;
+    max-height:92vh;
+    max-height:92dvh;
+  }
+  .modal-bar{padding:8px 14px}
+  .modal-kicker{font-size:10px;letter-spacing:.1em}
+  .modal-close-btn{font-size:30px;width:44px;height:44px;display:flex;align-items:center;justify-content:center}
+  .modal-content-scroll{padding:14px 14px 28px}
+  .video-showcase-box{margin-bottom:12px}
+  .v-tab-btn{white-space:normal;line-height:1.3}
+  .modal-heading{margin-bottom:14px}
+  .specs-grid{padding:12px;margin-bottom:18px}
+  .breakdown-card{padding:14px}
+  .modal-foot-actions{flex-direction:column;align-items:stretch;margin-top:20px}
+  .modal-links{flex-direction:column}
+  .modal-foot-actions .button{width:100%;text-align:center;justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+<a class="brand" href="#home">JESSKY<i>.</i>DEV</a>
+<ul class="links">
+<li><a href="#about" data-t="about">关于我</a></li>
+<li><a href="#projects" data-t="projects">项目作品</a></li>
+<li><a href="#skills" data-t="skills">技术栈</a></li>
+<li><a href="#contact" data-t="contact">联系方式</a></li>
+</ul>
+<div class="actions">
+<div class="lang">
+<button class="on" data-l="zh">CN</button>
+<button data-l="en">EN</button>
+</div>
+<a class="cv" href="CV.pdf" id="openResume" data-t="resume">获取简历</a>
+</div>
+</nav>
+
+<main>
+<section class="hero" id="home">
+<canvas></canvas>
+<div class="wrap hero-content">
+<div class="hero-text-col">
+  <div class="eyebrow" data-t="identity">虚拟现实开发者</div>
+  <h1>
+    <span data-t="hero1">构建下一代</span>
+    <span data-t="hero2">沉浸式世界</span>
+  </h1>
+  <div class="typed" data-t="typed">VR · GAMEPLAY · REAL-TIME 3D</div>
+  <p data-t="desc">专注于虚拟现实交互、游戏机制与实时图形技术，以引擎思维把概念转化为可感知的体验。</p>
+  <div class="buttons">
+    <a class="button primary" href="#projects" data-t="work">探索作品 ↗</a>
+    <a class="button" href="#contact" data-t="talk">发起连接</a>
+  </div>
+</div>
+<div class="hero-visual-mobile" aria-hidden="true">
+  <img src="vr-bg.svg" alt="VR Headset">
+</div>
+</div>
+</section>
+
+<section id="projects">
+<div class="wrap">
+<div class="head">
+<div>
+<div class="kicker">01 / <span data-t="featured">精选项目</span></div>
+<h2 data-t="projecttitle">作品的每一帧，都有目的。</h2>
+</div>
+<div class="no">SELECTED / 2024—26</div>
+</div>
+
+<div class="filters">
+<button class="filter active" data-f="all" data-t="all">全部项目</button>
+<button class="filter" data-f="vr" data-t="vr">VR 交互体验</button>
+<button class="filter" data-f="game" data-t="game">游戏 Demo</button>
+<button class="filter" data-f="graphics" data-t="graphics">3D 图形渲染</button>
+</div>
+
+<div class="projects" id="projectsGrid">
+<article class="project" data-c="vr" data-p="0">
+<div class="visual" style="--c:#00f0ff" data-code="01 // NEURAL ROOM"></div>
+<div class="project-info">
+<div class="meta">VR INTERACTION / 2025</div>
+<h3>Neural Room</h3>
+<p data-t="p1">面向 Pico 平台的沉浸式空间叙事与手势交互体验。</p>
+<span class="tag">Unity</span>
+<span class="tag">OpenXR</span>
+<span class="tag">C#</span>
+</div>
+<span class="view" data-t="detail">查看实机拆解与视频 →</span>
+</article>
+
+<article class="project" data-c="game" data-p="1">
+<div class="visual" style="--c:#7000ff" data-code="02 // ECHO PROTOCOL"></div>
+<div class="project-info">
+<div class="meta">GAMEPLAY SYSTEM / 2025</div>
+<h3>Echo Protocol</h3>
+<p data-t="p2">以声波为核心机制的科幻解谜原型，强调反馈与节奏。</p>
+<span class="tag">Unreal Engine 5</span>
+<span class="tag">C++</span>
+<span class="tag">Blueprint</span>
+</div>
+<span class="view" data-t="detail">查看实机拆解与视频 →</span>
+</article>
+
+<article class="project" data-c="graphics" data-p="2">
+<div class="visual" style="--c:#ffb800" data-code="03 // LUMEN FIELD"></div>
+<div class="project-info">
+<div class="meta">REAL-TIME GRAPHICS / 2024</div>
+<h3>Lumen Field</h3>
+<p data-t="p3">实时体积光与程序化地形的视觉研究项目。</p>
+<span class="tag">Shader</span>
+<span class="tag">HLSL</span>
+<span class="tag">Blender</span>
+</div>
+<span class="view" data-t="detail">查看实机拆解与视频 →</span>
+</article>
+</div>
+</div>
+</section>
+
+<section id="skills">
+<div class="wrap">
+<div class="head">
+<div>
+<div class="kicker">02 / <span data-t="tech">技术与引擎</span></div>
+<h2 data-t="skilltitle">让想象稳定运行。</h2>
+</div>
+<div class="no">SYSTEMS / TOOLS</div>
+</div>
+
+<div class="skills">
+<div class="panel">
+<div class="skill-grid">
+<div class="skill">
+<div class="icon">U</div>
+<b>Unity</b>
+<small>XR · Gameplay</small>
+</div>
+<div class="skill">
+<div class="icon">UE</div>
+<b>Unreal Engine 5</b>
+<small>C++ · Blueprint</small>
+</div>
+<div class="skill">
+<div class="icon">◇</div>
+<b>Blender</b>
+<small>Modeling · Assets</small>
+</div>
+<div class="skill">
+<div class="icon">fx</div>
+<b>Shaders</b>
+<small>HLSL · VFX</small>
+</div>
+<div class="skill">
+<div class="icon">C#</div>
+<b>C# / C++</b>
+<small>Architecture</small>
+</div>
+<div class="skill">
+<div class="icon">⌘</div>
+<b>Git</b>
+<small>Version Control</small>
+</div>
+</div>
+</div>
+
+<div class="panel">
+<div class="kicker" data-t="mindset">引擎思维</div>
+<h3 data-t="enginetitle">体验、性能、可扩展性。</h3>
+<p data-t="enginedesc">从交互原型到可维护的游戏系统：以玩家感受为起点，以清晰架构和运行效率为落点。</p>
+<div class="stats">
+<div>
+<b>XR</b>
+<small data-t="stat1">沉浸式交互</small>
+</div>
+<div>
+<b>60</b>
+<small data-t="stat2">FPS 设计基准</small>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="about">
+<div class="wrap about">
+<div>
+<div class="kicker">03 / <span data-t="about">关于我</span></div>
+<h2 data-t="abouttitle">我相信好的虚拟世界，来自<em>真实的感受</em>。</h2>
+</div>
+<div>
+<p data-t="aboutdesc">我是 Jessky Lau，一名专注于虚拟现实技术应用的开发者。我的工作横跨交互设计、游戏玩法与实时图形；始终好奇，怎样让一个系统不止“能用”，更能让人愿意停留其中。</p>
+<div class="cred">
+<b>FOCUS_01</b>
+<div data-t="cred1">虚拟现实技术应用<small>Virtual Reality Technology & Application</small></div>
+</div>
+<div class="cred">
+<b>FOCUS_02</b>
+<div data-t="cred2">游戏机制与交互系统<small>Gameplay Mechanics & Interaction Systems</small></div>
+</div>
+<div class="cred">
+<b>FOCUS_03</b>
+<div data-t="cred3">实时 3D 图形<small>Real-time 3D Graphics</small></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="contact" id="contact">
+<div class="wrap">
+<div class="contact-box">
+<div class="kicker" data-t="open">开放合作</div>
+<h2 data-t="contacttitle">下一个世界，<br>一起构建。</h2>
+<p data-t="contactdesc">无论是 VR 体验、游戏原型，或实时视觉实验，欢迎来聊。</p>
+<button class="button primary" id="openMail" type="button" data-t="email">发送邮件 ↗</button>
+</div>
+</div>
+</section>
+</main>
+
+<footer class="footer">
+<div class="wrap">
+<span>© 2026 JESSKY LAU. ALL SYSTEMS NOMINAL.</span>
+<div class="social">
+<a href="https://github.com" target="_blank" rel="noreferrer">GitHub</a>
+<a href="https://artstation.com" target="_blank" rel="noreferrer">ArtStation</a>
+<a href="https://space.bilibili.com" target="_blank" rel="noreferrer">Bilibili</a>
+<a href="mailto:laujessky@gmail.com">LinkedIn</a>
+</div>
+</div>
+</footer>
+
+<!-- 全新大尺寸作品详情模态框 (视频 + 动态回退 + 深度技术图文) -->
+<dialog class="project-dialog" id="projectDialog">
+  <div class="modal-bar">
+    <div class="modal-kicker">
+      <span class="live-indicator"></span>
+      <span id="modalMeta">PROJECT BREAKDOWN // 2025</span>
+    </div>
+    <button class="modal-close-btn" id="closeProjectModal" type="button" aria-label="关闭">×</button>
+  </div>
+
+  <div class="modal-content-scroll">
+    <!-- 视频工具条：切换与本地测试 (置顶于展示区上方，永久可见) -->
+    <div class="video-toolbar">
+      <div class="v-tab-group">
+        <button class="v-tab-btn" id="btnVideoMode" type="button">🎥 实机视频演示 (Video)</button>
+        <button class="v-tab-btn active" id="btnSimMode" type="button">⚙️ 动态机制仿真 (Live Sim)</button>
+      </div>
+      <label class="video-upload-btn" title="选取本地 mp4 视频测试播放">
+        <span>📁 导入本地视频测试</span>
+        <input type="file" id="localVideoPicker" accept="video/*" style="display:none">
+      </label>
+    </div>
+
+    <!-- 16:9 演示视频展示区 -->
+    <div class="video-showcase-box">
+      <video id="projVideo" class="modal-video-elem" controls playsinline loop preload="metadata" style="display:none">
+        <source id="projVideoSrc" src="" type="video/mp4">
+        你的浏览器不支持播放视频。
+      </video>
+      <canvas id="projCanvasFallback" class="modal-sim-canvas" style="display:block"></canvas>
+
+      <!-- 视频未就绪时的友好引导卡 -->
+      <div id="videoNoSourceOverlay" class="video-placeholder-overlay" style="display:none">
+        <div class="v-place-icon">🎥</div>
+        <div class="v-place-title" data-t="video_place_title">实机演示视频待载入</div>
+        <div class="v-place-desc" data-t="video_place_desc">本地尚未部署预设 mp4 视频文件。你可以点击下方「导入本地视频测试」选择你的本地实机录像，或切换至「动态机制仿真」。</div>
+        <div class="v-place-actions">
+          <button type="button" class="button primary v-place-btn" id="btnOverlayImport" data-t="import_video">📁 导入本地视频测试</button>
+          <button type="button" class="button v-place-btn" id="btnOverlaySim" data-t="switch_sim">⚙️ 切换至机制仿真</button>
+        </div>
+      </div>
+
+      <div class="video-status-overlay">
+        <span class="live-pill" id="videoStatusPill">
+          <span class="live-indicator"></span>
+          <span>LIVE SIMULATION // 60FPS</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- 标题与副标题 -->
+    <div class="modal-heading">
+      <h3 id="modalTitle">Neural Room</h3>
+      <div class="modal-desc-sub" id="modalSubtitle">面向 Pico 平台的沉浸式空间叙事与手势交互体验。</div>
+    </div>
+
+    <!-- 规格参数卡片 -->
+    <div class="specs-grid">
+      <div class="spec-col">
+        <span data-t="spec_platform">TARGET PLATFORM</span>
+        <strong id="specPlatform">Pico 4 Pro / Quest 3</strong>
+      </div>
+      <div class="spec-col">
+        <span data-t="spec_engine">CORE ENGINE</span>
+        <strong id="specEngine">Unity 2022 LTS (URP)</strong>
+      </div>
+      <div class="spec-col">
+        <span data-t="spec_role">DEVELOPER ROLE</span>
+        <strong id="specRole">Gameplay & Interaction</strong>
+      </div>
+      <div class="spec-col">
+        <span data-t="spec_perf">PERFORMANCE BENCHMARK</span>
+        <strong id="specBenchmark">72 FPS / &lt;80 DrawCalls</strong>
+      </div>
+    </div>
+
+    <!-- 四维技术档案 -->
+    <div class="breakdown-list" id="modalSections"></div>
+
+    <!-- 底部操作按钮 -->
+    <div class="modal-foot-actions">
+      <div class="modal-links">
+        <a class="button primary" id="modalDemoBtn" href="#" target="_blank">🎮 试玩工程 Demo ↗</a>
+        <a class="button" id="modalSourceBtn" href="#" target="_blank">💻 查看源码 (GitHub)</a>
+      </div>
+      <button class="button" id="modalBackBtn" type="button">返回作品集</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- 邮件表单弹窗 -->
+<dialog class="mail-dialog" id="mailDialog">
+<form class="mail-form" id="mailForm">
+<button class="close" type="button" id="closeMail" aria-label="关闭">×</button>
+<div class="modal-k">NEW MESSAGE</div>
+<h3 style="font:600 30px 'Space Grotesk';margin:10px 0 22px">发送一封邮件</h3>
+<label>收件人</label><div class="recipient">laujessky@gmail.com</div>
+<label for="senderName">你的姓名</label><input id="senderName" name="name" autocomplete="name" required>
+<label for="senderEmail">你的邮箱</label><input id="senderEmail" name="email" type="email" autocomplete="email" required>
+<label for="message">留言内容</label><textarea id="message" name="message" required></textarea>
+<button class="button mail-submit" type="submit">打开邮件客户端 ↗</button><p class="mail-status" aria-live="polite"></p>
+</form>
+</dialog>
+
+<!-- 简历预览弹窗 (支持多维缩放、平移、高清浏览与原件下载) -->
+<dialog class="resume-dialog" id="resumeDialog">
+  <div class="resume-bar">
+    <div class="modal-kicker">
+      <span class="live-indicator"></span>
+      <span>RESUME // JESSKY LAU</span>
+    </div>
+
+    <!-- 交互式缩放工具栏 -->
+    <div class="resume-zoom-controls">
+      <button type="button" class="r-zoom-btn" id="resumeZoomOut" title="缩小 (−)">−</button>
+      <button type="button" class="r-zoom-btn r-zoom-display" id="resumeZoomReset" title="重置缩放 (100%)">100%</button>
+      <button type="button" class="r-zoom-btn" id="resumeZoomIn" title="放大 (+)">+</button>
+      <button type="button" class="r-zoom-btn r-zoom-action" id="resumeFitWidth" title="适宽显示" data-t="fit_width">↔ 适宽</button>
+      <button type="button" class="r-zoom-btn r-zoom-action" id="resumeFitPage" title="整页居中" data-t="fit_page">↕ 整页</button>
+    </div>
+
+    <div class="resume-right-actions">
+      <a href="CV.pdf" target="_blank" class="r-action-btn" title="在新标签页全屏打开 PDF" data-t="resume_open_tab">↗ 新窗口打开</a>
+      <a href="CV.pdf" download="Jessky_Lau_CV.pdf" class="r-action-btn primary" title="下载原版高清 PDF" data-t="resume_download">⬇ 下载 PDF</a>
+      <button class="modal-close-btn" id="closeResume" type="button" aria-label="关闭">×</button>
+    </div>
+  </div>
+
+  <div class="resume-viewport" id="resumeViewport">
+    <div class="resume-stage" id="resumeStage">
+      <img src="CV_page_1.png" alt="Jessky Lau 简历" id="resumeImg" class="resume-img" draggable="false">
+    </div>
+  </div>
+
+  <div class="resume-foot">
+    <div class="resume-tip">
+      <span class="tip-icon">💡</span>
+      <span class="tip-text" data-t="resume_tip">支持顶部按钮缩放、滚轮 Ctrl+缩放、双击缩放、移动端双指捏合缩放</span>
+    </div>
+    <div class="resume-foot-buttons">
+      <a href="CV.pdf" download="Jessky_Lau_CV.pdf" class="button primary" data-t="resume_download">下载原版 PDF</a>
+      <button class="button" id="backHome" type="button" data-t="close_modal">关闭窗口</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+/* 1. 双语字典 */
+const D = {
+  zh: {
+    about: '关于我',
+    projects: '项目作品',
+    skills: '技术栈',
+    contact: '联系方式',
+    resume: '获取简历',
+    identity: '虚拟现实开发者',
+    hero1: '构建下一代',
+    hero2: '沉浸式世界',
+    typed: 'VR · GAMEPLAY · REAL-TIME 3D',
+    desc: '专注于虚拟现实交互、游戏机制与实时图形技术，以引擎思维把概念转化为可感知的体验。',
+    work: '探索作品 ↗',
+    talk: '发起连接',
+    featured: '精选项目',
+    projecttitle: '作品的每一帧，都有目的。',
+    all: '全部项目',
+    vr: 'VR 交互体验',
+    game: '游戏 Demo',
+    graphics: '3D 图形渲染',
+    p1: '面向 Pico 平台的沉浸式空间叙事与手势交互体验。',
+    p2: '以声波为核心机制的科幻解谜原型，强调反馈与节奏。',
+    p3: '实时体积光与程序化地形的视觉研究项目。',
+    detail: '查看实机拆解与视频 →',
+    tech: '技术与引擎',
+    skilltitle: '让想象稳定运行。',
+    mindset: '引擎思维',
+    enginetitle: '体验、性能、可扩展性。',
+    enginedesc: '从交互原型到可维护的游戏系统：以玩家感受为起点，以清晰架构和运行效率为落点。',
+    stat1: '沉浸式交互',
+    stat2: 'FPS 设计基准',
+    abouttitle: '我相信好的虚拟世界，来自<em>真实的感受</em>。',
+    aboutdesc: '我是 Jessky Lau，一名专注于虚拟现实技术应用的开发者。我的工作横跨交互设计、游戏玩法与实时图形；始终好奇，怎样让一个系统不止“能用”，更能让人愿意停留其中。',
+    cred1: '虚拟现实技术应用<small>Virtual Reality Technology & Application</small>',
+    cred2: '游戏机制与交互系统<small>Gameplay Mechanics & Interaction Systems</small>',
+    cred3: '实时 3D 图形<small>Real-time 3D Graphics</small>',
+    open: '开放合作',
+    contacttitle: '下一个世界，<br>一起构建。',
+    contactdesc: '无论是 VR 体验、游戏原型，或实时视觉实验，欢迎来聊。',
+    email: '发送邮件 ↗',
+    spec_platform: 'TARGET PLATFORM',
+    spec_engine: 'CORE ENGINE',
+    spec_role: 'DEVELOPER ROLE',
+    spec_perf: 'PERFORMANCE BENCHMARK',
+    video_place_title: '实机演示视频待载入',
+    video_place_desc: '本地尚未部署预设 mp4 视频文件。你可以点击下方「导入本地视频测试」选择你的本地实机录像，或切换至「动态机制仿真」。',
+    import_video: '📁 导入本地视频测试',
+    switch_sim: '⚙️ 切换至机制仿真',
+    resume_tip: '支持顶部按钮缩放、滚轮 Ctrl+缩放、双击缩放、移动端双指捏合缩放',
+    resume_download: '下载原版 PDF',
+    resume_open_tab: '↗ 新窗口打开',
+    fit_width: '↔ 适宽',
+    fit_page: '↕ 整页',
+    close_modal: '关闭窗口'
+  },
+  en: {
+    about: 'About',
+    projects: 'Projects',
+    skills: 'Tech Stack',
+    contact: 'Contact',
+    resume: 'GET RESUME',
+    identity: 'VR & GAME DEVELOPER',
+    hero1: 'BUILDING THE NEXT',
+    hero2: 'IMMERSIVE WORLDS',
+    typed: 'VR · GAMEPLAY · REAL-TIME 3D',
+    desc: 'I build virtual-reality interaction, gameplay systems, and real-time graphics—turning ideas into experiences people can feel.',
+    work: 'EXPLORE WORK ↗',
+    talk: 'START A CONVERSATION',
+    featured: 'FEATURED PROJECTS',
+    projecttitle: 'Every frame has a purpose.',
+    all: 'ALL PROJECTS',
+    vr: 'VR EXPERIENCES',
+    game: 'GAME DEMOS',
+    graphics: '3D GRAPHICS',
+    p1: 'An immersive spatial narrative and hand-interaction experience for Pico.',
+    p2: 'A sci-fi puzzle prototype driven by sound waves, feedback, and rhythm.',
+    p3: 'A visual study of real-time volumetric light and procedural terrain.',
+    detail: 'VIEW BREAKDOWN & REEL →',
+    tech: 'SKILLS & ENGINES',
+    skilltitle: 'Making imagination run smoothly.',
+    mindset: 'ENGINEERING MINDSET',
+    enginetitle: 'Experience. Performance. Scale.',
+    enginedesc: 'From interaction prototypes to maintainable game systems: player feeling first, clean architecture and runtime efficiency always.',
+    stat1: 'IMMERSIVE INTERACTION',
+    stat2: 'FPS DESIGN TARGET',
+    abouttitle: 'Great virtual worlds begin with <em>real feeling</em>.',
+    aboutdesc: 'I am Jessky Lau, a developer focused on Virtual Reality Technology & Application. My work spans interaction design, gameplay, and real-time graphics—always asking how a system can be more than usable, and worth inhabiting.',
+    cred1: 'Virtual Reality Technology & Application<small>Virtual Reality Technology & Application</small>',
+    cred2: 'Gameplay Mechanics & Interaction Systems<small>Gameplay Mechanics & Interaction Systems</small>',
+    cred3: 'Real-time 3D Graphics<small>Real-time 3D Graphics</small>',
+    open: 'OPEN FOR COLLABORATION',
+    contacttitle: 'LET’S BUILD THE<br>NEXT WORLD.',
+    contactdesc: 'For VR experiences, game prototypes, and real-time visual experiments—let’s talk.',
+    email: 'SEND EMAIL ↗',
+    spec_platform: 'TARGET PLATFORM',
+    spec_engine: 'CORE ENGINE',
+    spec_role: 'DEVELOPER ROLE',
+    spec_perf: 'PERFORMANCE BENCHMARK',
+    video_place_title: 'Demo Video Pending',
+    video_place_desc: 'No default mp4 file found in local repository. Click "Import Local MP4" to test your own recording, or switch to Live Simulation.',
+    import_video: '📁 Import Local Video',
+    switch_sim: '⚙️ Switch to Live Sim',
+    resume_tip: 'Zoom controls, Ctrl+Wheel, double-tap, and pinch-to-zoom supported',
+    resume_download: 'Download PDF',
+    resume_open_tab: '↗ Open in Tab',
+    fit_width: '↔ Fit Width',
+    fit_page: '↕ Fit Page',
+    close_modal: 'Close'
+  }
+};
+
+/* 2. 四维技术档案与视频数据源 */
+const PROJECTS_DATA = [
+  {
+    id: 0,
+    meta: 'VR INTERACTION // 2025',
+    title: { zh: 'Neural Room · 神经共鸣室', en: 'Neural Room' },
+    subtitle: {
+      zh: '面向 Pico 4 / Quest 3 的 VR 6DoF 空间手势交互与脑电波解谜实验',
+      en: 'VR 6DoF Hand-Tracking & Spatial Resonance Puzzle for Pico 4 / Quest 3'
+    },
+    videoSrc: 'videos/neural-room.mp4',
+    specs: {
+      platform: { zh: 'Pico 4 Pro / Quest 3 (OpenXR)', en: 'Pico 4 Pro / Quest 3 (OpenXR)' },
+      engine: { zh: 'Unity 2022 LTS (URP)', en: 'Unity 2022 LTS (URP)' },
+      role: { zh: '独立核心主程 / 交互设计 & 性能调优', en: 'Lead Developer / Interaction Design & Optimization' },
+      benchmark: { zh: '72 FPS 恒定 / 单眼 DrawCall < 80', en: 'Locked 72 FPS / DrawCalls < 80 per eye' }
+    },
+    sections: {
+      zh: [
+        {
+          heading: '01 / 项目初衷与立项背景',
+          text: '在无手柄裸手（Controller-free）的 VR 空间中，传统手势交互常常面临两大感知断层：缺乏物理实体导致的“虚空漂移感”，以及手指自然微抖带来的误触。Neural Room 旨在探索一套基于手指关节点空间置信度与动态力反馈代偿的手势物理交互框架，打造真正具备“阻尼重量感”的解谜体验。'
+        },
+        {
+          heading: '02 / 核心机制与手感调优（ConeCast 吸附与阻尼代偿）',
+          text: '• <strong>动态锥体吸附（ConeCast Snapping）</strong>：摒弃传统的单条射线检测，采用自适应角度的锥体投射，结合指尖骨骼距离与手掌朝向加权，在玩家触碰前 50ms 预测抓握意图，有效将抓取成功率提升 42%。<br>• <strong>多感官阻尼代偿</strong>：由于裸手缺乏物理震动，系统通过自适应局部低频音频微震 + 物体边缘应力发光着色器（Stress Shading），给大脑提供即时的触觉代偿反馈。'
+        },
+        {
+          heading: '03 / 系统架构与技术攻坚（HFSM 与防穿模求解）',
+          text: '• 采用<strong>分层有限状态机（Hierarchical FSM）</strong>解耦手势识别生命周期（Idle → Hover → Primed → Grabbed → Manipulating → Released）。<br>• <strong>物理防穿模求解</strong>：自研柔性弹簧阻尼器（Spring-Damper Joint），当虚拟物体碰撞场景障碍时，虚拟手模型平滑解耦并显示幽灵位姿，避免手臂突变穿模与物理引擎抖动。'
+        },
+        {
+          heading: '04 / 性能指标与移动端优化（零 GC 循环分配）',
+          text: '• 全场景严格实行<strong>零 GC 循环内存分配</strong>，所有手势骨骼更新与空间检测均使用对象池与 NativeArray。<br>• 结合 GPU Instancing 与光照贴图烘焙，在 Pico 4 Pro 上将单眼 DrawCall 严格控制在 75 次以内，稳定运行于 72 FPS 恒定基准。'
+        }
+      ],
+      en: [
+        {
+          heading: '01 / Background & Motivation',
+          text: 'In controller-free VR, bare-hand interactions often suffer from two issues: lack of physical resistance ("floating in air") and false triggers due to hand jitter. Neural Room explores a 6DoF hand-tracking framework combining skeletal pose confidence and sensory compensation to deliver tactile, reliable spatial puzzle gameplay.'
+        },
+        {
+          heading: '02 / Core Mechanics & Game Feel (ConeCast Snapping & Haptics)',
+          text: '• <strong>Dynamic ConeCast Snapping</strong>: Replaced single raycasts with an adaptive cone projection weighted by finger joint proximity and palm normals, predicting grab intent 50ms in advance and boosting grab reliability by 42%.<br>• <strong>Multi-Sensory Haptic Compensation</strong>: Compensated for the absence of physical resistance using localized low-frequency audio transients and surface stress shaders, providing instant mental confirmation of touch.'
+        },
+        {
+          heading: '03 / Architecture & Technical Solutions (HFSM & Anti-Penetration)',
+          text: '• Implemented a <strong>Hierarchical Finite State Machine (HFSM)</strong> decoupling interaction phases (Idle → Hover → Primed → Grabbed → Manipulating → Released).<br>• <strong>Anti-Penetration Solver</strong>: Custom spring-damper joints smoothly decouple the virtual hand from tracked pose upon collision, eliminating clipping and visual stutter.'
+        },
+        {
+          heading: '04 / Optimization & Performance Benchmarks (Zero-GC Loop)',
+          text: '• Enforced a <strong>Zero-GC runtime loop</strong> on mobile XR hardware; all joint transforms and raycast queries use pre-allocated NativeArrays and object pools.<br>• Combined GPU Instancing and lightmap baking to cap draw calls under 75 per eye, locking a solid 72 FPS on Pico 4 Pro.'
+        }
+      ]
+    }
+  },
+  {
+    id: 1,
+    meta: 'GAMEPLAY SYSTEM // 2025',
+    title: { zh: 'Echo Protocol · 回声协议', en: 'Echo Protocol' },
+    subtitle: {
+      zh: '基于 Unreal Engine 5 的视听联觉声波回声定位解谜游戏原型',
+      en: 'UE5 Sci-Fi Puzzle Gameplay Prototype Driven by Echolocation & Sound Waves'
+    },
+    videoSrc: 'videos/echo-protocol.mp4',
+    specs: {
+      platform: { zh: 'PC (Steam / Windows)', en: 'PC (Steam / Windows)' },
+      engine: { zh: 'Unreal Engine 5.3', en: 'Unreal Engine 5.3' },
+      role: { zh: '玩法系统架构 / C++ & Niagara 特效', en: 'Gameplay Programmer / C++ & Niagara VFX' },
+      benchmark: { zh: '复杂多光源场景稳定 60+ FPS', en: 'Stable 60+ FPS with Dynamic Lighting' }
+    },
+    sections: {
+      zh: [
+        {
+          heading: '01 / 项目初衷与立项背景',
+          text: 'Echo Protocol 是一款以“声音即视野”为核心机制的科幻硬核解谜原型。玩家处于完全黑暗的高维设施中，唯一的环境信息来自于自身发出的声波脉冲在几何表面反射形成的回声回弹。探索听觉与视觉的深度联觉机制。'
+        },
+        {
+          heading: '02 / 核心玩法与交互设计（声波脉冲雷达与差异化回声）',
+          text: '• <strong>声波脉冲扫描（Sonar Pulse）</strong>：玩家可发射点状、扇形与共振三种频率声波。声波沿场景网格几何体蔓延，实时勾勒地形轮廓、隐蔽机关与动态潜伏体。<br>• <strong>材质差异化回声</strong>：声波触碰金属会产生高频清脆回荡与长距离反弹；触碰有机体或软质墙体则被迅速吸收衰减，要求玩家根据回声声色判断前方障碍类型。'
+        },
+        {
+          heading: '03 / 系统架构与技术攻坚（Niagara GPU 与 GAS 框架）',
+          text: '• <strong>Niagara GPU 粒子声波渲染</strong>：利用 Global Distance Field（距离场）与材质世界位置偏移（WPO），实现声波沿任意复杂凹凸表面高保真传导贴合的视觉冲击。<br>• <strong>Gameplay Ability System (GAS) 框架</strong>：声波充能、心率消耗、声呐超载等能力完全基于 UE5 C++ GAS 架构组件化实现，与渲染和音效表现层完全解耦，支持高度可扩展的技能定制。'
+        },
+        {
+          heading: '04 / 性能指标与优化成果（MetaSound 与着色器优化）',
+          text: '• 优化声波扫描后处理着色器，避免全屏多层过度绘制（Overdraw）。<br>• 基于 MetaSound 搭建动态音频混响总线，降低 CPU 音频线程负载 35%，在 Lumen 全局光照与多光源同屏下稳定维持 60+ FPS。'
+        }
+      ],
+      en: [
+        {
+          heading: '01 / Background & Motivation',
+          text: 'Echo Protocol is a sci-fi puzzle prototype centered on the premise of "Sound is Sight." Set in an pitch-black high-dimensional facility, the player\'s sole sensory input comes from acoustic pulses reflecting off geometric obstacles, exploring the synergy between audio cues and spatial cognition.'
+        },
+        {
+          heading: '02 / Core Mechanics & Game Feel (Sonar Pulse & Material Acoustics)',
+          text: '• <strong>Sonar Pulse Scanning</strong>: Players emit acoustic waves in point, cone, or resonance modes. Pulses spread across geometry, illuminating terrain, traps, and lurking entities.<br>• <strong>Material-Aware Reverberation</strong>: Waves striking metallic surfaces yield crisp, long-distance echoes, while organic dampeners absorb frequencies quickly, requiring players to deduce spatial layout by acoustic timbre.'
+        },
+        {
+          heading: '03 / Architecture & Technical Solutions (Niagara Particles & GAS)',
+          text: '• <strong>Niagara GPU Particle Propagation</strong>: Leveraged Global Distance Fields (GDF) and World Position Offset (WPO) shaders to achieve surface-hugging wavefront rendering with zero mesh clipping.<br>• <strong>Gameplay Ability System (GAS)</strong>: Designed acoustic powers, battery stamina, and audio-overload effects in C++ GAS, fully decoupling gameplay logic from presentation.'
+        },
+        {
+          heading: '04 / Optimization & Performance Benchmarks',
+          text: '• Optimized post-process scanline shaders to eradicate full-screen overdraw.<br>• Built a dynamic MetaSound procedural audio bus that slashed CPU audio thread workload by 35%, sustaining stable 60+ FPS alongside Lumen dynamic GI.'
+        }
+      ]
+    }
+  },
+  {
+    id: 2,
+    meta: 'REAL-TIME GRAPHICS // 2024',
+    title: { zh: 'Lumen Field · 极光原野', en: 'Lumen Field' },
+    subtitle: {
+      zh: '面向移动端及独立 VR 算力的轻量化实时体积光与程序化植被 Shader 研究',
+      en: 'Lightweight Real-time Volumetric Light & Procedural Vegetation Shader for Mobile VR'
+    },
+    videoSrc: 'videos/lumen-field.mp4',
+    specs: {
+      platform: { zh: 'Unity URP / Mobile XR (Pico & Quest)', en: 'Unity URP / Mobile XR' },
+      engine: { zh: 'Unity URP 14 (Custom Pass)', en: 'Unity URP 14' },
+      role: { zh: '图形程序 / Shader 研发与性能压榨', en: 'Graphics Programmer / Shader R&D' },
+      benchmark: { zh: '移动端单帧渲染开销 < 4.2ms', en: 'Mobile Frame Cost < 4.2ms' }
+    },
+    sections: {
+      zh: [
+        {
+          heading: '01 / 项目初衷与立项背景',
+          text: '在移动端 VR 及独立算力平台上，由于功耗和带宽限制，传统的 3D Raymarching 体积雾与数十万级植被渲染往往是性能杀手。Lumen Field 致力于研发一套极轻量级的真实感光照与自然生态着色方案，在维持移动端 72FPS 的同时呈现出高品质的丁达尔光与动态风场。'
+        },
+        {
+          heading: '02 / 核心亮点与 Shader 机制（双边滤波体积光与风力草海）',
+          text: '• <strong>半分辨率双边滤波体积光</strong>：摒弃昂贵的全分辨率光线步进，采用 1/4 分辨率采样深度与阴影贴图计算散射，再通过自研深度感知双边上采样（Depth-Aware Bilateral Upsample）消除边缘黑斑与漏光，显存带宽开销削减 62%。<br>• <strong>程序化交互式草海</strong>：利用 HLSL 顶点着色器叠加三阶正弦风力场，并通过全局位置缓冲让角色与爆炸冲击能实时压倒草叶，完全规避昂贵的 CPU 刚体物理计算。'
+        },
+        {
+          heading: '03 / 技术架构与管线设计（URP Scriptable Pass & 间接实例化）',
+          text: '• 基于 Unity URP 编写自定义 <strong>Scriptable Render Pass</strong>，插入至 Skybox 之后、后处理之前，实现无缝深度融合。<br>• <strong>GPU 几何实例化（DrawMeshInstancedIndirect）</strong>：在 Compute Shader 中完成视锥剔除（Frustum Culling）与 LOD 分级计算，单屏十万级草叶渲染仅需 1 次 DrawCall。'
+        },
+        {
+          heading: '04 / 性能指标与实测数据（单帧开销压榨）',
+          text: '• 在高通骁龙 XR2 芯片实机测试中，整个体积光 Pass 单帧耗时降至 1.8ms，程序化草海开销仅 2.4ms。<br>• 整体显存占用降低 45MB，温控表现优异，避免了长时间运行引起的移动头显降频掉帧。'
+        }
+      ],
+      en: [
+        {
+          heading: '01 / Background & Motivation',
+          text: 'On mobile VR and standalone XR chipsets, thermal budgets and bandwidth limits make traditional 3D raymarched volumetric fog and massive foliage fatal to framerates. Lumen Field explores lightweight shaders that achieve cinematic godrays and responsive flora while preserving a strict 72 FPS baseline.'
+        },
+        {
+          heading: '02 / Core Highlights & Shader Mechanics (Volumetric Light & Grass)',
+          text: '• <strong>Quarter-Resolution Bilateral Volumetric Fog</strong>: Traded brute-force raymarching for quarter-resolution shadow map integration, reconstructed via custom depth-aware bilateral upsampling that eliminates haloing while slashing memory bandwidth by 62%.<br>• <strong>Procedural Responsive Grass Field</strong>: Synthesized wind ripples in vertex shaders using 3-tier sinusoidal noise, augmented by dynamic player footprint displacement buffers without incurring CPU physics costs.'
+        },
+        {
+          heading: '03 / Pipeline Architecture (URP Custom Pass & Indirect Instancing)',
+          text: '• Built a custom <strong>Scriptable Render Pass</strong> in Unity URP, inserted post-skybox to ensure pristine depth compositing.<br>• <strong>Indirect GPU Instancing</strong>: Performed frustum culling and distance-based LOD sorting inside Compute Shaders, rendering 100,000+ grass blades in a single DrawCall.'
+        },
+        {
+          heading: '04 / Performance Benchmarks & Results',
+          text: '• Benchmarked on Snapdragon XR2: volumetric pass executes in 1.8ms; foliage pass runs in 2.4ms.<br>• Reduced VRAM footprint by 45MB, preventing device throttling during extended VR play sessions.'
+        }
+      ]
+    }
+  }
+];
+
+let activeProjectId = null;
+let currentLanguage = localStorage.getItem('lang') || 'zh';
+
+function language(l){
+  currentLanguage = l;
+  document.documentElement.lang = l === 'zh' ? 'zh-CN' : 'en';
+  document.querySelectorAll('[data-t]').forEach(e => {
+    if (D[l][e.dataset.t]) e.innerHTML = D[l][e.dataset.t];
+  });
+  document.querySelectorAll('[data-l]').forEach(b => {
+    b.classList.toggle('on', b.dataset.l === l);
+  });
+  localStorage.setItem('lang', l);
+
+  if (activeProjectId !== null) {
+    updateModalContent(activeProjectId);
+  }
+}
+
+document.querySelectorAll('[data-l]').forEach(b => {
+  b.onclick = () => language(b.dataset.l);
+});
+language(currentLanguage);
+
+/* 3. 过滤器逻辑 */
+document.querySelectorAll('.filter').forEach(b => {
+  b.onclick = () => {
+    document.querySelectorAll('.filter').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    document.querySelectorAll('.project').forEach(p => {
+      p.classList.toggle('hide', b.dataset.f !== 'all' && p.dataset.c !== b.dataset.f);
+    });
+  };
+});
+
+/* 4. 全新大尺寸作品详情模态框逻辑 */
+const projectModal = document.getElementById('projectDialog');
+const closeProjectModal = document.getElementById('closeProjectModal');
+const modalBackBtn = document.getElementById('modalBackBtn');
+const projVideo = document.getElementById('projVideo');
+const projVideoSrc = document.getElementById('projVideoSrc');
+const projCanvasFallback = document.getElementById('projCanvasFallback');
+const videoStatusPill = document.getElementById('videoStatusPill');
+const btnVideoMode = document.getElementById('btnVideoMode');
+const btnSimMode = document.getElementById('btnSimMode');
+const localVideoPicker = document.getElementById('localVideoPicker');
+
+let simAnimId = null;
+
+function updateModalContent(id){
+  const proj = PROJECTS_DATA[id];
+  if (!proj) return;
+
+  document.getElementById('modalMeta').textContent = proj.meta;
+  document.getElementById('modalTitle').textContent = proj.title[currentLanguage];
+  document.getElementById('modalSubtitle').textContent = proj.subtitle[currentLanguage];
+
+  document.getElementById('specPlatform').textContent = proj.specs.platform[currentLanguage];
+  document.getElementById('specEngine').textContent = proj.specs.engine[currentLanguage];
+  document.getElementById('specRole').textContent = proj.specs.role[currentLanguage];
+  document.getElementById('specBenchmark').textContent = proj.specs.benchmark[currentLanguage];
+
+  const sections = proj.sections[currentLanguage];
+  const container = document.getElementById('modalSections');
+  container.innerHTML = sections.map(sec => `
+    <div class="breakdown-card">
+      <h4>${sec.heading}</h4>
+      <p>${sec.text}</p>
+    </div>
+  `).join('');
+}
+
+const videoNoSourceOverlay = document.getElementById('videoNoSourceOverlay');
+const btnOverlayImport = document.getElementById('btnOverlayImport');
+const btnOverlaySim = document.getElementById('btnOverlaySim');
+
+let currentMediaTab = 'sim'; // 'sim' | 'video'
+let customVideoUrl = null;
+
+function setMediaTab(targetTab) {
+  currentMediaTab = targetTab;
+
+  if (targetTab === 'sim') {
+    // 1. 按钮样式原子切换
+    btnSimMode.classList.add('active');
+    btnVideoMode.classList.remove('active');
+
+    // 2. 停止并隐藏视频播放器
+    projVideo.pause();
+    projVideo.style.display = 'none';
+    if (videoNoSourceOverlay) videoNoSourceOverlay.style.display = 'none';
+
+    // 3. 展现并运行 60FPS 机制仿真
+    projCanvasFallback.style.display = 'block';
+    videoStatusPill.innerHTML = `<span class="live-indicator"></span><span>LIVE SIMULATION // 60FPS</span>`;
+    runSimulation(activeProjectId !== null ? activeProjectId : 0);
+
+  } else { // 'video'
+    // 1. 按钮样式原子切换
+    btnVideoMode.classList.add('active');
+    btnSimMode.classList.remove('active');
+
+    // 2. 彻底终止仿真动画循环
+    if (simAnimId) {
+      cancelAnimationFrame(simAnimId);
+      simAnimId = null;
+    }
+    projCanvasFallback.style.display = 'none';
+
+    // 3. 展示实机视频播放器或引导占位
+    if (customVideoUrl) {
+      projVideo.style.display = 'block';
+      if (videoNoSourceOverlay) videoNoSourceOverlay.style.display = 'none';
+      videoStatusPill.innerHTML = `<span class="live-indicator"></span><span>LOCAL MP4 // READY</span>`;
+      projVideo.play().catch(() => {});
+    } else {
+      projVideo.style.display = 'none';
+      if (videoNoSourceOverlay) videoNoSourceOverlay.style.display = 'flex';
+      videoStatusPill.innerHTML = `<span class="live-indicator" style="background:#ffaa00;box-shadow:0 0 8px #ffaa00"></span><span>VIDEO // WAITING FOR MP4</span>`;
+    }
+  }
+}
+
+btnVideoMode.onclick = () => {
+  setMediaTab('video');
+};
+
+btnSimMode.onclick = () => {
+  setMediaTab('sim');
+};
+
+if (btnOverlaySim) {
+  btnOverlaySim.onclick = () => {
+    setMediaTab('sim');
+  };
+}
+
+if (btnOverlayImport) {
+  btnOverlayImport.onclick = () => localVideoPicker.click();
+}
+
+localVideoPicker.onchange = (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    if (customVideoUrl) URL.revokeObjectURL(customVideoUrl);
+    customVideoUrl = URL.createObjectURL(file);
+    projVideo.src = customVideoUrl;
+    projVideo.load();
+    setMediaTab('video');
+    videoStatusPill.innerHTML = `<span class="live-indicator"></span><span>LOCAL MP4 // ${file.name}</span>`;
+  }
+};
+
+function openProjectModal(id){
+  activeProjectId = Number(id);
+  updateModalContent(activeProjectId);
+  projectModal.showModal();
+
+  // 默认启动 60FPS 机制动态仿真（绝不黑屏卡住），若用户已载入本地视频则恢复视频
+  if (!customVideoUrl) {
+    setMediaTab('sim');
+  } else {
+    setMediaTab('video');
+  }
+}
+
+function closeProjectDialog(){
+  projectModal.close();
+  projVideo.pause();
+  if (simAnimId) {
+    cancelAnimationFrame(simAnimId);
+    simAnimId = null;
+  }
+  activeProjectId = null;
+}
+
+closeProjectModal.onclick = closeProjectDialog;
+modalBackBtn.onclick = closeProjectDialog;
+projectModal.onclick = (e) => {
+  if (e.target === projectModal) closeProjectDialog();
+};
+
+/* 5. 动态机制仿真回退 (手势锥体吸附、声波脉冲雷达、实时体积光草海) */
+function runSimulation(projId){
+  if (simAnimId) {
+    cancelAnimationFrame(simAnimId);
+    simAnimId = null;
+  }
+  const canvas = projCanvasFallback;
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  canvas.width = 960;
+  canvas.height = 540;
+  let frame = 0;
+
+  function render(){
+    if (currentMediaTab !== 'sim') {
+      if (simAnimId) { cancelAnimationFrame(simAnimId); simAnimId = null; }
+      return;
+    }
+    frame++;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = '#0a0d14';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.strokeStyle = 'rgba(200, 215, 255, 0.05)';
+    ctx.lineWidth = 1;
+    for(let x=0; x<canvas.width; x+=40){ ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke(); }
+    for(let y=0; y<canvas.height; y+=40){ ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke(); }
+
+    if (projId === 0) {
+      // 01 Neural Room: 6DoF 手指关节链条与 ConeCast 锥体吸附模拟
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+      const tx = cx + Math.sin(frame * 0.03) * 110;
+      const ty = cy + Math.cos(frame * 0.02) * 50;
+
+      ctx.strokeStyle = '#00f0ff';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(tx, ty, 30, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(0, 240, 255, 0.16)';
+      ctx.fill();
+
+      const hx = cx - 170 + Math.sin(frame * 0.02) * 35;
+      const hy = cy + 55;
+      ctx.fillStyle = '#f4f6ff';
+      ctx.beginPath();
+      ctx.arc(hx, hy, 16, 0, Math.PI * 2);
+      ctx.fill();
+
+      for(let f=0; f<5; f++){
+        const baseAng = -1.1 + f * 0.55;
+        const j1x = hx + Math.cos(baseAng) * 52;
+        const j1y = hy + Math.sin(baseAng) * 52;
+        const j2x = j1x + Math.cos(baseAng + 0.18) * 42;
+        const j2y = j1y + Math.sin(baseAng + 0.18) * 42;
+
+        ctx.strokeStyle = '#00f0ff';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(hx, hy);
+        ctx.lineTo(j1x, j1y);
+        ctx.lineTo(j2x, j2y);
+        ctx.stroke();
+
+        ctx.fillStyle = '#00f0ff';
+        ctx.beginPath();
+        ctx.arc(j2x, j2y, 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (f === 1 || f === 2) {
+          ctx.strokeStyle = 'rgba(0, 240, 255, 0.35)';
+          ctx.beginPath();
+          ctx.moveTo(j2x, j2y);
+          ctx.lineTo(tx, ty);
+          ctx.stroke();
+        }
+      }
+
+      ctx.font = '12px Space Grotesk';
+      ctx.fillStyle = '#00f0ff';
+      ctx.fillText('CONE-CAST SNAPPING: ACTIVE // POSE: SKELETAL_GRAB_PREDICT', 36, 44);
+      ctx.fillText('HAPTIC AUDIO TRANSIENT COMPENSATION // GC: ZERO_ALLOC', 36, 66);
+
+    } else if (projId === 1) {
+      // 02 Echo Protocol: 3D 声波脉冲扫描与多材质回声反弹
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+      ctx.strokeRect(cx - 220, cy - 80, 70, 160);
+      ctx.strokeRect(cx + 160, cy - 90, 80, 180);
+
+      for(let r=0; r<5; r++){
+        const radius = ((frame * 2.6 + r * 70) % 340);
+        const alpha = Math.max(0, 1 - radius / 340);
+        ctx.strokeStyle = `rgba(112, 0, 255, ${alpha})`;
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      ctx.fillStyle = '#00f0ff';
+      ctx.beginPath();
+      ctx.arc(cx, cy, 7, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.font = '12px Space Grotesk';
+      ctx.fillStyle = '#a9b1ff';
+      ctx.fillText('ACOUSTIC SONAR SWEEP // NIAGARA WORLD POSITION OFFSET', 36, 44);
+      ctx.fillText('METASOUND REVERBERATION // GAS ABILITY ENGINE STABLE 60+ FPS', 36, 66);
+
+    } else {
+      // 03 Lumen Field: 实时体积光束与三阶正弦程序化风力草海
+      const grad = ctx.createLinearGradient(canvas.width / 2, 0, canvas.width / 2, canvas.height);
+      grad.addColorStop(0, 'rgba(255, 184, 0, 0.65)');
+      grad.addColorStop(0.7, 'rgba(255, 184, 0, 0.16)');
+      grad.addColorStop(1, 'transparent');
+
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.moveTo(canvas.width * 0.2, 0);
+      ctx.lineTo(canvas.width * 0.8, 0);
+      ctx.lineTo(canvas.width * 0.95, canvas.height);
+      ctx.lineTo(canvas.width * 0.05, canvas.height);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.strokeStyle = '#00f0ff';
+      ctx.lineWidth = 2;
+      for(let b=25; b<canvas.width-25; b+=16){
+        const sway = Math.sin(frame * 0.05 + b * 0.04) * 15;
+        ctx.beginPath();
+        ctx.moveTo(b, canvas.height);
+        ctx.quadraticCurveTo(b + sway * 0.5, canvas.height - 35, b + sway, canvas.height - 75);
+        ctx.stroke();
+      }
+
+      ctx.fillStyle = '#ffb800';
+      for(let p=0; p<18; p++){
+        const px = (Math.sin(p * 99 + frame * 0.01) * 0.5 + 0.5) * canvas.width;
+        const py = (Math.cos(p * 33 + frame * 0.015) * 0.5 + 0.5) * canvas.height;
+        ctx.beginPath();
+        ctx.arc(px, py, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.font = '12px Space Grotesk';
+      ctx.fillStyle = '#ffb800';
+      ctx.fillText('1/4 RES BILATERAL VOLUMETRIC SCATTERING // URP PASS: 1.8ms', 36, 44);
+      ctx.fillText('GPU DRAW-MESH-INSTANCED-INDIRECT: 100K BLADES / 1 DC', 36, 66);
+    }
+
+    simAnimId = requestAnimationFrame(render);
+  }
+
+  render();
+}
+
+/* 6. 卡片 3D 倾斜与点击打开模态框 */
+document.querySelectorAll('.project').forEach(c => {
+  c.onmousemove = e => {
+    let r = c.getBoundingClientRect(),
+        x = e.clientX - r.left - r.width / 2,
+        y = e.clientY - r.top - r.height / 2;
+    c.style.transform = `perspective(800px) rotateY(${x / r.width * 8}deg) rotateX(${-y / r.height * 8}deg) translateY(-4px)`;
+  };
+  c.onmouseleave = () => c.style.transform = '';
+  c.onclick = () => openProjectModal(c.dataset.p);
+});
+
+/* 7. 邮件表单弹窗 */
+const mailDialog = document.querySelector('#mailDialog'),
+      mailForm = document.querySelector('#mailForm');
+document.querySelector('#openMail').onclick = () => mailDialog.showModal();
+document.querySelector('#closeMail').onclick = () => mailDialog.close();
+mailDialog.onclick = e => { if (e.target === mailDialog) mailDialog.close(); };
+mailForm.onsubmit = e => {
+  e.preventDefault();
+  const f = new FormData(mailForm),
+        subject = encodeURIComponent('Portfolio contact from ' + f.get('name')),
+        body = encodeURIComponent('Name: ' + f.get('name') + '\nEmail: ' + f.get('email') + '\n\nMessage:\n' + f.get('message'));
+  document.querySelector('.mail-status').textContent = '正在打开你的邮件客户端…';
+  location.href = 'mailto:laujessky@gmail.com?subject=' + subject + '&body=' + body;
+};
+
+/* 8. 简历高清交互视口与多维缩放逻辑 */
+const resumeDialog = document.querySelector('#resumeDialog');
+const resumeViewport = document.getElementById('resumeViewport');
+const resumeImg = document.getElementById('resumeImg');
+const resumeZoomOut = document.getElementById('resumeZoomOut');
+const resumeZoomReset = document.getElementById('resumeZoomReset');
+const resumeZoomIn = document.getElementById('resumeZoomIn');
+const resumeFitWidth = document.getElementById('resumeFitWidth');
+const resumeFitPage = document.getElementById('resumeFitPage');
+
+let resumeZoom = 1.0;
+const BASE_RESUME_WIDTH = 840;
+const MIN_ZOOM = 0.35;
+const MAX_ZOOM = 3.2;
+
+function setResumeZoom(newZoom, originX, originY) {
+  newZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, newZoom));
+  const prevZoom = resumeZoom;
+  resumeZoom = newZoom;
+
+  const targetWidth = Math.round(BASE_RESUME_WIDTH * resumeZoom);
+  resumeImg.style.width = targetWidth + 'px';
+  resumeZoomReset.textContent = Math.round(resumeZoom * 100) + '%';
+
+  if (originX !== undefined && originY !== undefined && prevZoom > 0) {
+    const ratio = resumeZoom / prevZoom;
+    resumeViewport.scrollLeft = (resumeViewport.scrollLeft + originX) * ratio - originX;
+    resumeViewport.scrollTop = (resumeViewport.scrollTop + originY) * ratio - originY;
+  }
+}
+
+function fitResumeWidth() {
+  if (!resumeViewport.clientWidth) return;
+  const availWidth = resumeViewport.clientWidth - (resumeViewport.clientWidth < 600 ? 20 : 48);
+  const targetZoom = availWidth / BASE_RESUME_WIDTH;
+  setResumeZoom(targetZoom);
+}
+
+function fitResumePage() {
+  if (!resumeViewport.clientHeight) return;
+  const availHeight = resumeViewport.clientHeight - (resumeViewport.clientWidth < 600 ? 20 : 48);
+  const A4_ASPECT = 3508 / 2481;
+  const targetWidth = availHeight / A4_ASPECT;
+  const targetZoom = targetWidth / BASE_RESUME_WIDTH;
+  setResumeZoom(targetZoom);
+}
+
+if (resumeZoomIn) resumeZoomIn.onclick = () => setResumeZoom(resumeZoom + 0.2);
+if (resumeZoomOut) resumeZoomOut.onclick = () => setResumeZoom(resumeZoom - 0.2);
+if (resumeZoomReset) resumeZoomReset.onclick = () => setResumeZoom(1.0);
+if (resumeFitWidth) resumeFitWidth.onclick = fitResumeWidth;
+if (resumeFitPage) resumeFitPage.onclick = fitResumePage;
+
+resumeViewport.addEventListener('wheel', (e) => {
+  if (e.ctrlKey || e.metaKey) {
+    e.preventDefault();
+    const delta = e.deltaY < 0 ? 0.15 : -0.15;
+    const rect = resumeViewport.getBoundingClientRect();
+    setResumeZoom(resumeZoom + delta, e.clientX - rect.left, e.clientY - rect.top);
+  }
+}, { passive: false });
+
+let isResumeDragging = false;
+let panStartX = 0, panStartY = 0, panStartScrollLeft = 0, panStartScrollTop = 0;
+
+resumeViewport.addEventListener('mousedown', (e) => {
+  if (e.button !== 0) return;
+  isResumeDragging = true;
+  resumeViewport.classList.add('grabbing');
+  panStartX = e.clientX;
+  panStartY = e.clientY;
+  panStartScrollLeft = resumeViewport.scrollLeft;
+  panStartScrollTop = resumeViewport.scrollTop;
+});
+
+window.addEventListener('mousemove', (e) => {
+  if (!isResumeDragging) return;
+  const dx = e.clientX - panStartX;
+  const dy = e.clientY - panStartY;
+  resumeViewport.scrollLeft = panStartScrollLeft - dx;
+  resumeViewport.scrollTop = panStartScrollTop - dy;
+});
+
+window.addEventListener('mouseup', () => {
+  if (isResumeDragging) {
+    isResumeDragging = false;
+    resumeViewport.classList.remove('grabbing');
+  }
+});
+
+let pinchStartDist = 0;
+let pinchStartZoom = 1.0;
+
+resumeViewport.addEventListener('touchstart', (e) => {
+  if (e.touches.length === 2) {
+    pinchStartDist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+    pinchStartZoom = resumeZoom;
+  }
+}, { passive: true });
+
+resumeViewport.addEventListener('touchmove', (e) => {
+  if (e.touches.length === 2 && pinchStartDist > 0) {
+    const dist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+    const scale = dist / pinchStartDist;
+    const rect = resumeViewport.getBoundingClientRect();
+    const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left;
+    const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top;
+    setResumeZoom(pinchStartZoom * scale, midX, midY);
+  }
+}, { passive: true });
+
+resumeViewport.addEventListener('touchend', (e) => {
+  if (e.touches.length < 2) {
+    pinchStartDist = 0;
+  }
+});
+
+let lastTouchTapTime = 0;
+resumeImg.addEventListener('touchend', (e) => {
+  const now = Date.now();
+  if (now - lastTouchTapTime < 300) {
+    e.preventDefault();
+    toggleDoubleZoom();
+  }
+  lastTouchTapTime = now;
+});
+resumeImg.addEventListener('dblclick', () => {
+  toggleDoubleZoom();
+});
+
+function toggleDoubleZoom() {
+  const isMobile = resumeViewport.clientWidth < 600;
+  if (isMobile) {
+    if (resumeZoom < 0.75) {
+      setResumeZoom(1.3);
+    } else {
+      fitResumeWidth();
+    }
+  } else {
+    if (resumeZoom < 1.1) {
+      setResumeZoom(1.6);
+    } else {
+      fitResumePage();
+    }
+  }
+}
+
+document.querySelector('#openResume').onclick = e => {
+  e.preventDefault();
+  resumeDialog.showModal();
+  requestAnimationFrame(() => {
+    if (resumeViewport.clientWidth < 600) {
+      fitResumeWidth();
+    } else {
+      fitResumePage();
+    }
+  });
+};
+document.querySelector('#closeResume').onclick = () => resumeDialog.close();
+document.querySelector('#backHome').onclick = () => resumeDialog.close();
+resumeDialog.onclick = e => { if (e.target === resumeDialog) resumeDialog.close(); };
+
+/* 9. Hero 连线粒子背景 Canvas (还原上个版本的粒子网) */
+const c = document.querySelector('.hero canvas'),
+      x = c.getContext('2d'),
+      a = [];
+let mx = 0, my = 0;
+function rs(){ c.width = innerWidth; c.height = innerHeight; }
+rs();
+addEventListener('resize', rs);
+addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; });
+for(let i=0; i<45; i++){
+  a.push({
+    x: Math.random() * innerWidth,
+    y: Math.random() * innerHeight,
+    vx: (Math.random() - .5) * .3,
+    vy: (Math.random() - .5) * .3
+  });
+}
+function draw(){
+  x.clearRect(0, 0, c.width, c.height);
+  a.forEach((p, i) => {
+    p.x += p.vx;
+    p.y += p.vy;
+    if(p.x < 0 || p.x > c.width) p.vx *= -1;
+    if(p.y < 0 || p.y > c.height) p.vy *= -1;
+    let m = Math.hypot(p.x - mx, p.y - my);
+    if(m < 180){
+      p.x += (p.x - mx) / m * .25;
+      p.y += (p.y - my) / m * .25;
+    }
+    x.fillStyle = '#00f0ff';
+    x.globalAlpha = .6;
+    x.fillRect(p.x, p.y, 2, 2);
+    a.slice(i + 1).forEach(q => {
+      let d = Math.hypot(p.x - q.x, p.y - q.y);
+      if(d < 120){
+        x.globalAlpha = (1 - d / 120) * .13;
+        x.strokeStyle = '#00f0ff';
+        x.beginPath();
+        x.moveTo(p.x, p.y);
+        x.lineTo(q.x, q.y);
+        x.stroke();
+      }
+    });
+  });
+  x.globalAlpha = 1;
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>
