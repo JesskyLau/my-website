@@ -221,6 +221,12 @@ h2{margin:0;font-size:clamp(32px,5.4vw,56px);line-height:1.1;font-weight:700;let
 .video-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
 .v-tab-group{display:flex;gap:8px}
 .v-tab-btn{border:0;background:var(--ink);color:#fff;font:500 13px/1.2 var(--font);padding:8px 16px;border-radius:980px;cursor:default}
+.v-src{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.seg-mini{display:inline-flex;padding:3px;border-radius:980px;background:rgba(0,0,0,.06)}
+.seg-btn{border:0;background:transparent;color:#515154;font:500 12.5px/1 var(--font);padding:7px 14px;border-radius:980px;cursor:pointer;transition:background .25s,color .25s,box-shadow .25s}
+.seg-btn.on{background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.14)}
+.v-link{font-size:13px;color:var(--link)}
+.v-link:hover{text-decoration:underline}
 .video-showcase-box{position:relative;aspect-ratio:16/9;background:#000;border-radius:20px;overflow:hidden;margin-bottom:36px}
 .modal-video-elem{display:block;width:100%;height:100%;object-fit:contain;background:#000}
 .video-placeholder-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;gap:8px;color:#f5f5f7;background:radial-gradient(60% 70% at 50% 25%,#2a2a2e,#000)}
@@ -715,9 +721,17 @@ body:has(dialog[open]){overflow:hidden}
       <div class="v-tab-group">
         <button class="v-tab-btn" id="btnVideoMode" type="button" data-t="tab_video">实机视频演示</button>
       </div>
+      <div class="v-src" id="videoSrcSwitch" hidden>
+        <div class="seg-mini" role="group" aria-label="视频来源">
+          <button type="button" class="seg-btn on" id="srcBili" data-t="src_bili">B 站播放</button>
+          <button type="button" class="seg-btn" id="srcLocal" data-t="src_local">本站高清</button>
+        </div>
+        <a class="v-link" id="biliLink" href="#" target="_blank" rel="noopener" data-t="bili_open">在 B 站观看 ↗</a>
+      </div>
     </div>
 
     <div class="video-showcase-box">
+      <iframe id="projBili" class="modal-video-elem" style="display:none;border:0" title="Bilibili video" allow="fullscreen; autoplay; picture-in-picture" allowfullscreen scrolling="no" referrerpolicy="no-referrer-when-downgrade"></iframe>
       <video id="projVideo" class="modal-video-elem" controls playsinline loop preload="metadata" style="display:none"></video>
 
       <div id="videoNoSourceOverlay" class="video-placeholder-overlay" style="display:none">
@@ -809,6 +823,9 @@ const D = {
     spec_role: 'DEVELOPER ROLE',
     spec_perf: 'PERFORMANCE BENCHMARK',
     tab_video: '实机视频演示',
+    src_bili: 'B 站播放',
+    src_local: '本站高清',
+    bili_open: '在 B 站观看 ↗',
     video_place_title: '实机演示视频待载入',
     video_place_desc: '演示视频即将上线。',
     demo_btn: '试玩 Demo ›',
@@ -866,6 +883,9 @@ const D = {
     spec_role: 'DEVELOPER ROLE',
     spec_perf: 'PERFORMANCE BENCHMARK',
     tab_video: 'Gameplay video',
+    src_bili: 'Bilibili',
+    src_local: 'HD (this site)',
+    bili_open: 'Open on Bilibili ↗',
     video_place_title: 'Demo Video Pending',
     video_place_desc: 'Demo video coming soon.',
     demo_btn: 'Play demo ›',
@@ -994,6 +1014,7 @@ const PROJECTS_DATA = [
     },
     videoSrc: 'videos/lumenverse.mp4',
     cover: 'covers/lumenverse.jpg',
+    bili: { aid: '117306545938214', bvid: 'BV1thhv6oEJy', cid: '42067953162' },
     specs: {
       platform: { zh: 'Windows PC · 1920×1080', en: 'Windows PC · 1920×1080' },
       engine: { zh: 'Unity 2021.3 LTS · URP 12', en: 'Unity 2021.3 LTS · URP 12' },
@@ -1050,6 +1071,7 @@ const PROJECTS_DATA = [
     },
     videoSrc: 'videos/archess.mp4',
     cover: 'covers/archess.jpg',
+    bili: { aid: '117306545935896', bvid: 'BV1thhv6oEDB', cid: '42067953116' },
     specs: {
       platform: { zh: 'Android ARM64（ARCore 设备）', en: 'Android ARM64 (ARCore devices)' },
       engine: { zh: 'Unity 2021 LTS (URP) · AR Foundation', en: 'Unity 2021 LTS (URP) · AR Foundation' },
@@ -1106,6 +1128,7 @@ const PROJECTS_DATA = [
     },
     videoSrc: 'videos/temple.mp4',
     cover: 'covers/temple.jpg',
+    bili: { aid: '117306546000944', bvid: 'BV1Uhhv6oE3x', cid: '42067953276' },
     specs: {
       platform: { zh: 'PC (DX12)', en: 'PC (DX12)' },
       engine: { zh: 'Unreal Engine 5 (C++ / 蓝图 / GAS)', en: 'Unreal Engine 5 (C++ / Blueprint / GAS)' },
@@ -1162,6 +1185,7 @@ const PROJECTS_DATA = [
     },
     videoSrc: 'videos/vicecity.mp4',
     cover: 'covers/vicecity.jpg',
+    bili: { aid: '117306545934645', bvid: 'BV1bhhv6oENq', cid: '42067953293' },
     specs: {
       platform: { zh: 'PC', en: 'PC' },
       engine: { zh: 'Unity 2020 LTS (URP)', en: 'Unity 2020 LTS (URP)' },
@@ -1218,6 +1242,7 @@ const PROJECTS_DATA = [
     },
     videoSrc: 'videos/riftcity.mp4',
     cover: 'covers/riftcity.jpg',
+    bili: { aid: '117306545935915', bvid: 'BV1thhv6oEQs', cid: '42067953378' },
     specs: {
       platform: { zh: 'PC (DX12)', en: 'PC (DX12)' },
       engine: { zh: 'Unreal Engine 5 (GAS)', en: 'Unreal Engine 5 (GAS)' },
@@ -1318,6 +1343,11 @@ const projectModal = document.getElementById('projectDialog');
 const closeProjectModal = document.getElementById('closeProjectModal');
 const modalBackBtn = document.getElementById('modalBackBtn');
 const projVideo = document.getElementById('projVideo');
+const projBili = document.getElementById('projBili');
+const srcSwitch = document.getElementById('videoSrcSwitch');
+const srcBili = document.getElementById('srcBili');
+const srcLocal = document.getElementById('srcLocal');
+const biliLink = document.getElementById('biliLink');
 const videoStatusPill = document.getElementById('videoStatusPill');
 const videoNoSourceOverlay = document.getElementById('videoNoSourceOverlay');
 
@@ -1351,12 +1381,23 @@ function updateModalContent(id){
   srcBtn.hidden  = !proj.source; if (proj.source) srcBtn.href  = proj.source;
 }
 
-/* 视频区：项目预设 videoSrc > 待载入引导卡 */
+/* 视频区：B 站嵌入（国内访问更流畅）/ 本站 MP4（海外更清晰）/ 待载入引导卡 */
+// 默认来源：中文语言或中国大陆时区优先 B 站，其他地区优先本站 MP4；访客可用切换按钮自选
+function preferBili(){
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    return /^Asia\/(Shanghai|Chongqing|Harbin|Urumqi|Macau|Hong_Kong)$/.test(tz) || (navigator.language || '').toLowerCase().startsWith('zh');
+  } catch (e) { return true; }
+}
+let videoSource = preferBili() ? 'bili' : 'local';
+const biliUrl = (b) => '//player.bilibili.com/player.html?isOutside=true&aid=' + b.aid + '&bvid=' + b.bvid + '&cid=' + b.cid + '&p=1&autoplay=0&danmaku=0';
 
 function setPill(html){ videoStatusPill.innerHTML = html; }
+function stopBili(){ projBili.style.display = 'none'; if (projBili.getAttribute('src') !== 'about:blank') projBili.src = 'about:blank'; }
 
 function showPlaceholder(){
   projVideo.style.display = 'none';
+  stopBili();
   videoNoSourceOverlay.style.display = 'flex';
   setPill('<span class="live-indicator" style="background:#ffaa00"></span><span>VIDEO // WAITING FOR MP4</span>');
 }
@@ -1368,19 +1409,41 @@ function showPlayer(label){
 }
 function refreshVideoArea(){
   const proj = PROJECTS_DATA[activeProjectId];
-  const src = (proj && proj.videoSrc) || '';
+  const hasBili = !!(proj && proj.bili), hasLocal = !!(proj && proj.videoSrc);
+  const kind = (hasBili && hasLocal) ? videoSource : (hasBili ? 'bili' : (hasLocal ? 'local' : 'none'));
+
+  // 切换按钮：两种来源都有才显示；有 B 站链接时显示「在 B 站观看」
+  srcSwitch.hidden = !hasBili;
+  document.querySelector('.seg-mini').style.display = (hasBili && hasLocal) ? '' : 'none';
+  srcBili.classList.toggle('on', kind === 'bili');
+  srcLocal.classList.toggle('on', kind === 'local');
+  if (hasBili) biliLink.href = 'https://www.bilibili.com/video/' + proj.bili.bvid;
+
   projVideo.pause();
   if (proj && proj.cover) projVideo.poster = proj.cover; else projVideo.removeAttribute('poster');   // 封面同时作为视频海报
-  if (!src) {
-    projVideo.removeAttribute('src');
-    projVideo.load();
-    showPlaceholder();
+  document.querySelector('.video-status-overlay').style.display = (kind === 'bili') ? 'none' : '';   // B 站播放器自带界面，不叠加状态标签
+
+  if (kind === 'bili') {
+    projVideo.removeAttribute('src'); projVideo.load();
+    projVideo.style.display = 'none';
+    videoNoSourceOverlay.style.display = 'none';
+    setPill('<span class="live-indicator"></span><span>BILIBILI</span>');
+    projBili.src = biliUrl(proj.bili);
+    projBili.style.display = 'block';
     return;
   }
-  showPlaceholder();           // 视频元数据就绪前先显示引导卡，避免黑屏
-  projVideo.src = src;
-  projVideo.load();
+  stopBili();
+  if (kind === 'local') {
+    showPlaceholder();           // 视频元数据就绪前先显示引导卡，避免黑屏
+    projVideo.src = proj.videoSrc;
+    projVideo.load();
+  } else {
+    projVideo.removeAttribute('src'); projVideo.load();
+    showPlaceholder();
+  }
 }
+srcBili.onclick = () => { videoSource = 'bili'; refreshVideoArea(); };
+srcLocal.onclick = () => { videoSource = 'local'; refreshVideoArea(); };
 projVideo.addEventListener('loadedmetadata', () => {
   showPlayer('VIDEO // READY');
 });
@@ -1398,6 +1461,7 @@ function openProjectModal(id){
 function closeProjectDialog(){
   projectModal.close();
   projVideo.pause();
+  stopBili();
   activeProjectId = null;
 }
 closeProjectModal.onclick = closeProjectDialog;
