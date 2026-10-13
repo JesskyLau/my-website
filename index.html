@@ -26,7 +26,7 @@
   <meta name="twitter:image" content="https://jesskylau.me/og-image.png">
   <script
     type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Jessky Lau","url":"https://jesskylau.me/","jobTitle":"VR & Game Developer"}</script>
-  <script>document.documentElement.classList.add('js')</script>
+  
   <style>
     :root {
       --ink: #1d1d1f;
@@ -1461,6 +1461,11 @@
     body:has(dialog[open]) {
       overflow: hidden
     }
+    .visual.cover::before { background: linear-gradient(180deg, transparent 30%, rgba(0,0,0,.74)); z-index: 1; }
+    .visual::after { z-index: 2; }
+    .project-cover { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .9s var(--ease); }
+    .project:hover .project-cover { transform:scale(1.045); }
+    #retryVideo { margin-top:16px; }
   </style>
 </head>
 
@@ -1843,7 +1848,7 @@
         <div class="projects" id="projectsGrid">
 
           <article class="project reveal" data-c="vr" data-p="0">
-            <div class="visual cover" style="--c:#2fb8c4;--img:url(covers/resusci.jpg)" data-code="心脉守护者"></div>
+            <div class="visual cover" style="--c:#2fb8c4;--img:url(covers/resusci.jpg)" data-code="心脉守护者"><img class="project-cover" src="covers/resusci.jpg" alt="" loading="lazy" decoding="async" width="1280" height="800"></div>
             <div class="project-info">
               <div class="meta">VR MEDICAL TRAINING</div>
               <h3>心脉守护者</h3>
@@ -1855,7 +1860,7 @@
           </article>
 
           <article class="project reveal" data-c="vr" data-p="3">
-            <div class="visual cover" style="--c:#34d399;--img:url(covers/archess.jpg)" data-code="棋与誓约"></div>
+            <div class="visual cover" style="--c:#34d399;--img:url(covers/archess.jpg)" data-code="棋与誓约"><img class="project-cover" src="covers/archess.jpg" alt="" loading="lazy" decoding="async" width="1280" height="800"></div>
             <div class="project-info">
               <div class="meta">AR INTERACTION</div>
               <h3>棋与誓约</h3>
@@ -1866,10 +1871,10 @@
           </article>
 
           <article class="project reveal" data-c="game" data-p="1">
-            <div class="visual cover" style="--c:#eab308;--img:url(covers/apex.jpg)" data-code="APEX 极速天穹"></div>
+            <div class="visual cover" style="--c:#eab308;--img:url(covers/apex.jpg)" data-code="极速天穹"><img class="project-cover" src="covers/apex.jpg" alt="" loading="lazy" decoding="async" width="1280" height="800"></div>
             <div class="project-info">
               <div class="meta">RACING SANDBOX</div>
-              <h3>APEX 极速天穹</h3>
+              <h3>极速天穹</h3>
               <p data-t="p2">基于 Unity 的拟真竞速沙盒：射线悬挂与轮胎侧偏力物理、四季抓地力联动、AI 雷达避障与地平线式 HUD。</p>
               <span class="tag">Unity</span><span class="tag">C#</span><span class="tag">Post-Processing</span>
             </div>
@@ -1877,7 +1882,7 @@
           </article>
 
           <article class="project reveal" data-c="game" data-p="4">
-            <div class="visual cover" style="--c:#f97316;--img:url(covers/temple.jpg)" data-code="神殿觉醒"></div>
+            <div class="visual cover" style="--c:#f97316;--img:url(covers/temple.jpg)" data-code="神殿觉醒"><img class="project-cover" src="covers/temple.jpg" alt="" loading="lazy" decoding="async" width="1280" height="800"></div>
             <div class="project-info">
               <div class="meta">ACTION RPG</div>
               <h3>神殿觉醒</h3>
@@ -1888,11 +1893,11 @@
           </article>
 
           <article class="project reveal" data-c="game" data-p="5">
-            <div class="visual cover" style="--c:#ef4444;--img:url(covers/vicecity.jpg)" data-code="Vice City Warfare">
+            <div class="visual cover" style="--c:#ef4444;--img:url(covers/vicecity.jpg)" data-code="罪城战火"><img class="project-cover" src="covers/vicecity.jpg" alt="" loading="lazy" decoding="async" width="1280" height="800">
             </div>
             <div class="project-info">
               <div class="meta">VEHICLE COMBAT</div>
-              <h3>Vice City Warfare</h3>
+              <h3>罪城战火</h3>
               <p data-t="p_vice">开放都市中的坦克战斗，含载具驾驶、爆炸破坏与警方追捕玩法闭环。</p>
               <span class="tag">Unity</span><span class="tag">C#</span><span class="tag">NavMesh</span>
             </div>
@@ -1900,10 +1905,10 @@
           </article>
 
           <article class="project reveal" data-c="game" data-p="6">
-            <div class="visual cover" style="--c:#fb923c;--img:url(covers/riftcity.jpg)" data-code="Rift City"></div>
+            <div class="visual cover" style="--c:#fb923c;--img:url(covers/riftcity.jpg)" data-code="裂隙都市"><img class="project-cover" src="covers/riftcity.jpg" alt="" loading="lazy" decoding="async" width="1280" height="800"></div>
             <div class="project-info">
               <div class="meta">OPEN-CITY ACTION RPG</div>
-              <h3>裂隙都市 Rift City</h3>
+              <h3>裂隙都市</h3>
               <p data-t="p_gta">前半段是 GTA 风格的开放都市（探索、载具驾驶、通缉度），后半段是基于 GAS 的动作 RPG 关卡（技能、属性、背包）。</p>
               <span class="tag">Unreal Engine 5</span><span class="tag">GAS</span><span class="tag">UMG</span>
             </div>
@@ -1911,10 +1916,10 @@
           </article>
 
           <article class="project reveal" data-c="graphics" data-p="2">
-            <div class="visual cover" style="--c:#ffb800;--img:url(covers/lumenverse.jpg)" data-code="LumenVerse"></div>
+            <div class="visual cover" style="--c:#ffb800;--img:url(covers/lumenverse.jpg)" data-code="幻光万象"><img class="project-cover" src="covers/lumenverse.jpg" alt="" loading="lazy" decoding="async" width="1280" height="800"></div>
             <div class="project-info">
               <div class="meta">REAL-TIME GRAPHICS</div>
-              <h3>幻光万象 LumenVerse</h3>
+              <h3>幻光万象</h3>
               <p data-t="p3">基于 Unity URP 的着色器作品集，包含黑洞传送门、透明材质、海洋与太阳系四个主题场景。</p>
               <span class="tag">Unity URP</span><span class="tag">ShaderLab</span><span class="tag">Shader Graph</span>
             </div>
@@ -1974,8 +1979,7 @@
           <h2 data-t="abouttitle">我相信好的虚拟世界，来自<em>真实的感受</em>。</h2>
         </div>
         <div class="reveal">
-          <p class="about-desc" data-t="aboutdesc">我是 Jessky
-            Lau，一名专注于虚拟现实技术应用的开发者。我的工作横跨交互设计、游戏玩法与实时图形；始终好奇，怎样让一个系统不止“能用”，更能让人愿意停留其中。</p>
+          <p class="about-desc" data-t="aboutdesc">我是刘智林，一名专注于虚拟现实技术应用的开发者。我的工作横跨交互设计、游戏玩法与实时图形；始终好奇，怎样让一个系统不止“能用”，更能让人愿意停留其中。</p>
           <div class="cred"><b>FOCUS_01</b>
             <div data-t="cred1">虚拟现实技术应用<small>Virtual Reality Technology &amp; Application</small></div>
           </div>
@@ -2045,7 +2049,7 @@
         <div id="videoNoSourceOverlay" class="video-placeholder-overlay" style="display:none">
           <div class="v-place-icon" aria-hidden="true">▶</div>
           <div class="v-place-title" data-t="video_place_title">实机演示视频待载入</div>
-          <div class="v-place-desc" data-t="video_place_desc">演示视频即将上线。</div>
+          <div class="v-place-desc" data-t="video_place_desc">演示视频即将上线。</div><button class="button small" id="retryVideo" type="button" hidden>重试</button>
         </div>
 
         <div class="video-status-overlay">
@@ -2071,13 +2075,7 @@
       <div class="breakdown-list" id="modalSections"></div>
 
       <div class="modal-foot-actions">
-        <div class="modal-links">
-          <a class="button" id="modalDemoBtn" href="#" target="_blank" rel="noopener" hidden data-t="demo_btn">试玩 Demo
-            ›</a>
-          <a class="button soft" id="modalSourceBtn" href="#" target="_blank" rel="noopener" hidden
-            data-t="source_btn">查看源码 ›</a>
-        </div>
-        <button class="button soft" id="modalBackBtn" type="button" data-t="back">返回作品集</button>
+<button class="button soft" id="modalBackBtn" type="button" data-t="back">返回作品集</button>
       </div>
     </div>
   </dialog>
@@ -2120,7 +2118,7 @@
         stat1: '沉浸式交互',
         stat2: 'FPS 设计基准',
         abouttitle: '我相信好的虚拟世界，来自<em>真实的感受</em>。',
-        aboutdesc: '我是 Jessky Lau，一名专注于虚拟现实技术应用的开发者。我的工作横跨交互设计、游戏玩法与实时图形；始终好奇，怎样让一个系统不止“能用”，更能让人愿意停留其中。',
+        aboutdesc: '我是刘智林，一名专注于虚拟现实技术应用的开发者。我的工作横跨交互设计、游戏玩法与实时图形；始终好奇，怎样让一个系统不止“能用”，更能让人愿意停留其中。',
         cred1: '虚拟现实技术应用<small>Virtual Reality Technology & Application</small>',
         cred2: '游戏机制与交互系统<small>Gameplay Mechanics & Interaction Systems</small>',
         cred3: '实时 3D 图形<small>Real-time 3D Graphics</small>',
@@ -2130,7 +2128,7 @@
         copy_email: '复制邮箱',
         gmail_btn: '用 Gmail 写信',
         mail_subject: '来自作品集网站的联络',
-        copied: '已复制 ✓',
+        copied: '已复制 ✓', copy_failed: '复制失败，请手动复制邮箱', close: '关闭', loading: '视频加载中', loading_desc: '正在加载演示视频，请稍候。', video_error: '视频加载失败', video_error_desc: '请重试或切换视频来源。', video_missing: '暂无演示视频', video_missing_desc: '此项目尚未提供演示视频。', retry: '重试',
         spec_platform: 'TARGET PLATFORM',
         spec_engine: 'CORE ENGINE',
         spec_role: 'DEVELOPER ROLE',
@@ -2140,8 +2138,6 @@
         src_local: '本站高清',
         video_place_title: '实机演示视频待载入',
         video_place_desc: '演示视频即将上线。',
-        demo_btn: '试玩 Demo ›',
-        source_btn: '查看源码 ›',
         back: '返回作品集'
       },
       en: {
@@ -2189,7 +2185,7 @@
         copy_email: 'Copy email',
         gmail_btn: 'Write in Gmail',
         mail_subject: 'Message from your portfolio website',
-        copied: 'Copied ✓',
+        copied: 'Copied ✓', copy_failed: 'Copy failed. Please copy the email manually.', close: 'Close', loading: 'Loading video', loading_desc: 'Please wait while the demo loads.', video_error: 'Video could not load', video_error_desc: 'Retry or switch video source.', video_missing: 'No demo video available', video_missing_desc: 'This project has no demo video yet.', retry: 'Retry',
         spec_platform: 'TARGET PLATFORM',
         spec_engine: 'CORE ENGINE',
         spec_role: 'DEVELOPER ROLE',
@@ -2199,8 +2195,6 @@
         src_local: 'HD (this site)',
         video_place_title: 'Demo Video Pending',
         video_place_desc: 'Demo video coming soon.',
-        demo_btn: 'Play demo ›',
-        source_btn: 'View source ›',
         back: 'Back to projects'
       }
     };
@@ -2210,7 +2204,7 @@
       {
         id: 0,
         meta: 'VR MEDICAL TRAINING',
-        title: {zh: '心脉守护者 · ResusciGuard VR', en: 'ResusciGuard VR'},
+        title: {zh: '心脉守护者', en: 'ResusciGuard VR'},
         subtitle: {
           zh: '基于 AHA 2020 / ERC 2021 指南的 VR 心肺复苏与智能 AED 除颤实训系统，面向医学院校与应急培训场景',
           en: 'A VR CPR and smart AED defibrillation trainer built on AHA 2020 / ERC 2021 guidelines, for medical schools and emergency-response training'
@@ -2267,7 +2261,7 @@
       {
         id: 1,
         meta: 'RACING SANDBOX',
-        title: {zh: 'APEX · 极速天穹', en: 'APEX'},
+        title: {zh: '极速天穹', en: 'APEX'},
         subtitle: {
           zh: '基于 Unity 的拟真竞速与半开放世界漫游沙盒，围绕车辆物理、动态天候与 AI 交通展开',
           en: 'A Unity-built racing and semi-open-world driving sandbox centered on vehicle physics, dynamic weather, and AI traffic'
@@ -2324,7 +2318,7 @@
       {
         id: 2,
         meta: 'REAL-TIME GRAPHICS',
-        title: {zh: '幻光万象 · LumenVerse', en: 'LumenVerse'},
+        title: {zh: '幻光万象', en: 'LumenVerse'},
         subtitle: {
           zh: '以 Unity URP 实时渲染效果为核心的着色器作品集，用四个独立主题场景展示光照、材质与空间效果',
           en: 'A Unity URP shader showcase built around real-time rendering, with four themed scenes covering lighting, materials, and spatial effects'
@@ -2381,7 +2375,7 @@
       {
         id: 3,
         meta: 'AR INTERACTION',
-        title: {zh: '棋与誓约', en: '棋与誓约'},
+        title: {zh: '棋与誓约', en: 'Chess & Oath'},
         subtitle: {
           zh: '基于 AR Foundation 的移动端 AR 战棋游戏，实现平面检测、棋盘放置与图像卡牌识别联动',
           en: 'A mobile AR tactics board game built on AR Foundation, linking plane detection, board placement, and image-based card recognition'
@@ -2438,7 +2432,7 @@
       {
         id: 4,
         meta: 'ACTION RPG',
-        title: {zh: '神殿觉醒 · UE5 GAS 动作 RPG', en: '神殿觉醒 · UE5 GAS Action RPG'},
+        title: {zh: '神殿觉醒', en: 'Temple Awakening'},
         subtitle: {
           zh: '基于 Unreal Engine 5 与 GAS 的第三人称动作角色扮演游戏，以古代神庙为战斗场景',
           en: 'A third-person action RPG built on Unreal Engine 5 and GAS, set in an ancient temple'
@@ -2495,7 +2489,7 @@
       {
         id: 5,
         meta: 'VEHICLE COMBAT',
-        title: {zh: 'Vice City Warfare · 开放都市坦克战斗', en: 'Vice City Warfare'},
+        title: {zh: '罪城战火', en: 'Vice City Warfare'},
         subtitle: {
           zh: '基于 Unity 的开放都市坦克战斗游戏，涵盖载具驾驶、爆炸破坏与警方追捕玩法闭环',
           en: 'An open-city tank combat game built in Unity, featuring vehicle driving, destruction, and a police-pursuit gameplay loop'
@@ -2552,7 +2546,7 @@
       {
         id: 6,
         meta: 'OPEN-CITY ACTION RPG',
-        title: {zh: '裂隙都市 · Rift City', en: 'Rift City'},
+        title: {zh: '裂隙都市', en: 'Rift City'},
         subtitle: {
           zh: '基于 Unreal Engine 5 的两段式动作 Demo：前半段是 GTA 风格的开放都市，后半段是基于 GAS 的动作 RPG 关卡',
           en: 'A two-part action demo built on Unreal Engine 5: the first half is a GTA-style open city, the second half is a GAS-based action RPG level'
@@ -2615,6 +2609,7 @@
     };
 
     let activeProjectId = null;
+    let videoState = 'missing';
     let currentLanguage = store.get('lang') === 'en' ? 'en' : 'zh';
 
     // 邮件链接：带上按语言切换的默认主题；「用 Gmail 写信」在浏览器里打开 Gmail 写信页，页脚 Email 调用本机邮件软件
@@ -2633,7 +2628,17 @@
       });
       document.querySelectorAll('[data-l]').forEach(b => {
         b.classList.toggle('on', b.dataset.l === l);
+        b.setAttribute('aria-pressed', String(b.dataset.l === l));
       });
+      document.getElementById('closeProjectModal').setAttribute('aria-label', D[l].close);
+      document.querySelectorAll('.project').forEach(card => {
+        const title = PROJECTS_DATA[Number(card.dataset.p)].title[l];
+        card.querySelector('h3').textContent = title;
+        card.querySelector('.visual').dataset.code = title;
+        card.setAttribute('aria-label', title + ' — ' + D[l].detail);
+      });
+      document.querySelector('.seg-mini').setAttribute('aria-label', l === 'zh' ? '视频来源' : 'Video source');
+      updateVideoMessage();
       store.set('lang', l);
       updateMailLinks();
       if (activeProjectId !== null) updateModalContent(activeProjectId);
@@ -2690,11 +2695,6 @@
     </div>
   `).join('');
 
-      // 试玩 / 源码按钮：项目数据里配置了 demo / source 链接才显示
-      const demoBtn = document.getElementById('modalDemoBtn');
-      const srcBtn = document.getElementById('modalSourceBtn');
-      demoBtn.hidden = !proj.demo; if (proj.demo) demoBtn.href = proj.demo;
-      srcBtn.hidden = !proj.source; if (proj.source) srcBtn.href = proj.source;
     }
 
     /* 视频区：B 站嵌入（国内访问更流畅）/ 本站 MP4（海外更清晰）/ 待载入引导卡 */
@@ -2706,33 +2706,49 @@
       } catch (e) {return true;}
     }
     let videoSource = preferBili() ? 'bili' : 'local';
-    const biliUrl = (b) => '//player.bilibili.com/player.html?isOutside=true&aid=' + b.aid + '&bvid=' + b.bvid + '&cid=' + b.cid + '&p=1&autoplay=0&danmaku=0';
+    let activeVideoKind = 'none';
+    const biliUrl = (b) => 'https://player.bilibili.com/player.html?isOutside=true&aid=' + b.aid + '&bvid=' + b.bvid + '&cid=' + b.cid + '&p=1&autoplay=0&danmaku=0';
 
     function setPill(html) {videoStatusPill.innerHTML = html;}
     function stopBili() {projBili.style.display = 'none'; if (projBili.getAttribute('src') !== 'about:blank') projBili.src = 'about:blank';}
 
-    function showPlaceholder() {
+    function updateVideoMessage() {
+      const d = D[currentLanguage];
+      const key = videoState === 'loading' ? 'loading' : videoState === 'error' ? 'video_error' : 'video_missing';
+      videoNoSourceOverlay.querySelector('.v-place-title').textContent = d[key];
+      videoNoSourceOverlay.querySelector('.v-place-desc').textContent = d[key + '_desc'];
+      document.getElementById('retryVideo').textContent = d.retry;
+      document.getElementById('retryVideo').hidden = videoState !== 'error';
+      videoNoSourceOverlay.setAttribute('role', 'status');
+    }
+    document.getElementById('retryVideo').onclick = refreshVideoArea;
+    function showPlaceholder(state = 'missing') {
+      videoState = state;
+      updateVideoMessage();
       projVideo.style.display = 'none';
       stopBili();
       videoNoSourceOverlay.style.display = 'flex';
-      setPill('<span class="live-indicator" style="background:#ffaa00"></span><span>VIDEO // WAITING FOR MP4</span>');
+      setPill('<span class="live-indicator" style="background:#ffaa00"></span><span>VIDEO // ' + state.toUpperCase() + '</span>');
     }
     function showPlayer(label) {
       projVideo.style.display = 'block';
       videoNoSourceOverlay.style.display = 'none';
       setPill('<span class="live-indicator"></span><span>' + label + '</span>');
-      projVideo.play().catch(() => { });
+      videoState = 'ready';
     }
     function refreshVideoArea() {
       const proj = PROJECTS_DATA[activeProjectId];
       const hasBili = !!(proj && proj.bili), hasLocal = !!(proj && proj.videoSrc);
       const kind = (hasBili && hasLocal) ? videoSource : (hasBili ? 'bili' : (hasLocal ? 'local' : 'none'));
 
+      activeVideoKind = kind;
       // 切换按钮：两种来源（B 站 + 本站 MP4）都有才显示
       srcSwitch.hidden = !hasBili;
       document.querySelector('.seg-mini').style.display = (hasBili && hasLocal) ? '' : 'none';
       srcBili.classList.toggle('on', kind === 'bili');
       srcLocal.classList.toggle('on', kind === 'local');
+      srcBili.setAttribute('aria-pressed', String(kind === 'bili'));
+      srcLocal.setAttribute('aria-pressed', String(kind === 'local'));
 
       projVideo.pause();
       if (proj && proj.cover) projVideo.poster = proj.cover; else projVideo.removeAttribute('poster');   // 封面同时作为视频海报
@@ -2751,7 +2767,7 @@
       }
       stopBili();
       if (kind === 'local') {
-        showPlaceholder();           // 视频元数据就绪前先显示引导卡，避免黑屏
+        showPlaceholder('loading');           // 视频元数据就绪前先显示引导卡，避免黑屏
         projVideo.src = proj.videoSrc;
         projVideo.load();
       } else {
@@ -2762,10 +2778,10 @@
     srcBili.onclick = () => {videoSource = 'bili'; refreshVideoArea();};
     srcLocal.onclick = () => {videoSource = 'local'; refreshVideoArea();};
     projVideo.addEventListener('loadedmetadata', () => {
-      showPlayer('VIDEO // READY');
+      if (projectModal.open && projVideo.getAttribute('src') && activeVideoKind === 'local') showPlayer('VIDEO // READY');
     });
     projVideo.addEventListener('error', () => {
-      if (projVideo.getAttribute('src')) showPlaceholder();
+      if (projectModal.open && projVideo.getAttribute('src')) showPlaceholder('error');
     });
 
     function openProjectModal(id) {
@@ -2798,23 +2814,30 @@
 
     /* 6. 复制邮箱 */
     const copyBtn = document.getElementById('copyMail');
+    let copyTimer;
     copyBtn.onclick = async () => {
+      let success = false;
       try {
         await navigator.clipboard.writeText(EMAIL);
+        success = true;
       } catch (err) {
+        const previous = document.activeElement;
         const t = document.createElement('textarea');
         t.value = EMAIL; t.style.cssText = 'position:fixed;opacity:0';
         document.body.appendChild(t); t.select();
-        try {document.execCommand('copy');} catch (e2) { }
-        t.remove();
+        try { success = document.execCommand('copy'); } catch (e) { }
+        t.remove(); previous?.focus();
       }
-      copyBtn.textContent = D[currentLanguage].copied;
-      document.getElementById('copyStatus').textContent = D[currentLanguage].copied;
-      setTimeout(() => {copyBtn.textContent = D[currentLanguage].copy_email;}, 1800);
+      const message = D[currentLanguage][success ? 'copied' : 'copy_failed'];
+      copyBtn.textContent = message;
+      document.getElementById('copyStatus').textContent = message;
+      clearTimeout(copyTimer);
+      copyTimer = setTimeout(() => {copyBtn.textContent = D[currentLanguage].copy_email;}, 2500);
     };
 
     /* 7. 滚动显现：每次进入视口都重新播放（尊重「减少动态效果」，无 IntersectionObserver 时直接显示） */
     (function () {
+      document.documentElement.classList.add('js');
       const els = document.querySelectorAll('.reveal');
       const hero = document.querySelector('.hero');
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
