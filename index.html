@@ -3089,7 +3089,7 @@
         if (file.size) { const size = document.createElement('small'); size.textContent = file.size; info.append(size); }
         if (file.note) { const note = document.createElement('small'); note.textContent = typeof file.note === 'string' ? file.note : file.note[currentLanguage]; info.append(note); }
         const link = document.createElement('a'); link.className = 'button small'; link.href = file.url;
-        link.setAttribute('download', ''); link.textContent = en ? 'Download' : '下载文件';
+        if (/^https?:\/\//i.test(file.url)) { link.target = '_blank'; link.rel = 'noopener noreferrer'; link.textContent = en ? 'Open Cloud Drive' : '前往网盘下载'; } else { link.setAttribute('download', ''); link.textContent = en ? 'Download' : '下载文件'; }
         row.append(info, link); list.append(row);
       });
     }
