@@ -1466,6 +1466,22 @@
     .project-cover { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .9s var(--ease); }
     .project:hover .project-cover { transform:scale(1.045); }
     #retryVideo { margin-top:16px; }
+
+    .project-actions { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:8px 28px 26px; }
+    .project-actions .view { padding:0; }
+    .try-button { border:0; border-radius:980px; padding:9px 17px; background:var(--blue); color:#fff; font:500 14px var(--font); cursor:pointer; }
+    .try-button:hover { background:#0077ed; }
+    .modal-heading .try-button { margin-top:18px; }
+    .download-dialog { width:min(560px,calc(100% - 32px)); max-height:85vh; padding:32px; border:0; border-radius:24px; color:var(--ink); background:#fff; overflow:auto; }
+    .download-dialog::backdrop { background:rgba(0,0,0,.55); backdrop-filter:blur(8px); }
+    .download-dialog h2 { font-size:28px; padding-right:32px; }
+    .download-close { position:absolute; top:16px; right:16px; width:32px; height:32px; border:0; border-radius:50%; background:var(--bg2); font-size:24px; cursor:pointer; }
+    .download-intro,.download-empty { color:var(--ink2); font-size:15px; line-height:1.6; }
+    .download-item { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:20px 0; border-bottom:1px solid var(--line); }
+    .download-item strong { display:block; font-size:17px; }
+    .download-item small { display:block; color:var(--ink2); margin-top:4px; overflow-wrap:anywhere; }
+    .download-item a { flex-shrink:0; }
+    @media(max-width:420px) { .project-actions { padding-left:20px; padding-right:20px; } .download-dialog { padding:24px; } }
   </style>
 </head>
 
@@ -1847,6 +1863,20 @@
 
         <div class="projects" id="projectsGrid">
 
+          <article class="project reveal" data-c="vr" data-p="7">
+            <div class="visual cover" style="--c:#38bdf8;--img:url(covers/anatomyxr.png)" data-code="解构生命 AnatomyXR"><img class="project-cover" src="covers/anatomyxr.png" alt="AnatomyXR 项目菜单封面" loading="lazy" decoding="async" width="1280" height="800"></div>
+            <div class="project-info">
+              <div class="meta">XR ANATOMY LEARNING</div>
+              <h3>解构生命 AnatomyXR</h3>
+              <p data-t="p_anatomy">基于 Unity 的人体解剖学习与 CPR 训练系统，涵盖 61 项器官及相关结构、自由切割、抓取观察与学习测验。</p>
+              <span class="tag">Unity</span><span class="tag">XR Interaction Toolkit</span><span class="tag">OpenXR</span>
+            </div>
+            <div class="project-actions">
+              <span class="view" data-t="detail">查看详情 ›</span>
+              <button class="try-button" type="button" data-t="try_now">立即试玩</button>
+            </div>
+          </article>
+
           <article class="project reveal" data-c="vr" data-p="0">
             <div class="visual cover" style="--c:#2fb8c4;--img:url(covers/resusci.jpg)" data-code="心脉守护者"><img class="project-cover" src="covers/resusci.jpg" alt="" loading="lazy" decoding="async" width="1280" height="800"></div>
             <div class="project-info">
@@ -1856,7 +1886,10 @@
               <span class="tag">Unity</span><span class="tag">XR Interaction Toolkit</span><span
                 class="tag">OpenXR</span>
             </div>
-            <span class="view" data-t="detail">查看详情 ›</span>
+            <div class="project-actions">
+              <span class="view" data-t="detail">查看详情 ›</span>
+              <button class="try-button" type="button" data-t="try_now">立即试玩</button>
+            </div>
           </article>
 
           <article class="project reveal" data-c="vr" data-p="3">
@@ -1867,18 +1900,24 @@
               <p data-t="p_ar">基于 AR Foundation 的移动端 AR 战棋，平面检测、棋盘放置与卡牌识别联动。</p>
               <span class="tag">Unity</span><span class="tag">AR Foundation</span><span class="tag">ARCore</span>
             </div>
-            <span class="view" data-t="detail">查看详情 ›</span>
+            <div class="project-actions">
+              <span class="view" data-t="detail">查看详情 ›</span>
+              <button class="try-button" type="button" data-t="try_now">立即试玩</button>
+            </div>
           </article>
 
-          <article class="project reveal" data-c="game" data-p="1">
-            <div class="visual cover" style="--c:#eab308;--img:url(covers/apex.jpg)" data-code="极速天穹"><img class="project-cover" src="covers/apex.jpg" alt="" loading="lazy" decoding="async" width="1280" height="800"></div>
+          <article class="project reveal" data-c="game" data-p="6">
+            <div class="visual cover" style="--c:#fb923c;--img:url(covers/riftcity.jpg)" data-code="裂隙都市"><img class="project-cover" src="covers/riftcity.jpg" alt="" loading="lazy" decoding="async" width="1280" height="800"></div>
             <div class="project-info">
-              <div class="meta">RACING SANDBOX</div>
-              <h3>极速天穹</h3>
-              <p data-t="p2">基于 Unity 的拟真竞速沙盒：射线悬挂与轮胎侧偏力物理、四季抓地力联动、AI 雷达避障与地平线式 HUD。</p>
-              <span class="tag">Unity</span><span class="tag">C#</span><span class="tag">Post-Processing</span>
+              <div class="meta">OPEN-CITY ACTION RPG</div>
+              <h3>裂隙都市</h3>
+              <p data-t="p_gta">前半段是 GTA 风格的开放都市（探索、载具驾驶、通缉度），后半段是基于 GAS 的动作 RPG 关卡（技能、属性、背包）。</p>
+              <span class="tag">Unreal Engine 5</span><span class="tag">GAS</span><span class="tag">UMG</span>
             </div>
-            <span class="view" data-t="detail">查看详情 ›</span>
+            <div class="project-actions">
+              <span class="view" data-t="detail">查看详情 ›</span>
+              <button class="try-button" type="button" data-t="try_now">立即试玩</button>
+            </div>
           </article>
 
           <article class="project reveal" data-c="game" data-p="4">
@@ -1889,7 +1928,10 @@
               <p data-t="p_temple">基于 UE5 GAS 的第三人称动作 RPG，古代神庙场景下的能力与战斗系统。</p>
               <span class="tag">Unreal Engine 5</span><span class="tag">C++</span><span class="tag">GAS</span>
             </div>
-            <span class="view" data-t="detail">查看详情 ›</span>
+            <div class="project-actions">
+              <span class="view" data-t="detail">查看详情 ›</span>
+              <button class="try-button" type="button" data-t="try_now">立即试玩</button>
+            </div>
           </article>
 
           <article class="project reveal" data-c="game" data-p="5">
@@ -1901,18 +1943,38 @@
               <p data-t="p_vice">开放都市中的坦克战斗，含载具驾驶、爆炸破坏与警方追捕玩法闭环。</p>
               <span class="tag">Unity</span><span class="tag">C#</span><span class="tag">NavMesh</span>
             </div>
-            <span class="view" data-t="detail">查看详情 ›</span>
+            <div class="project-actions">
+              <span class="view" data-t="detail">查看详情 ›</span>
+              <button class="try-button" type="button" data-t="try_now">立即试玩</button>
+            </div>
           </article>
 
-          <article class="project reveal" data-c="game" data-p="6">
-            <div class="visual cover" style="--c:#fb923c;--img:url(covers/riftcity.jpg)" data-code="裂隙都市"><img class="project-cover" src="covers/riftcity.jpg" alt="" loading="lazy" decoding="async" width="1280" height="800"></div>
+          <article class="project reveal" data-c="game" data-p="1">
+            <div class="visual cover" style="--c:#eab308;--img:url(covers/apex.jpg)" data-code="极速天穹"><img class="project-cover" src="covers/apex.jpg" alt="" loading="lazy" decoding="async" width="1280" height="800"></div>
             <div class="project-info">
-              <div class="meta">OPEN-CITY ACTION RPG</div>
-              <h3>裂隙都市</h3>
-              <p data-t="p_gta">前半段是 GTA 风格的开放都市（探索、载具驾驶、通缉度），后半段是基于 GAS 的动作 RPG 关卡（技能、属性、背包）。</p>
-              <span class="tag">Unreal Engine 5</span><span class="tag">GAS</span><span class="tag">UMG</span>
+              <div class="meta">RACING SANDBOX</div>
+              <h3>极速天穹</h3>
+              <p data-t="p2">基于 Unity 的拟真竞速沙盒：射线悬挂与轮胎侧偏力物理、四季抓地力联动、AI 雷达避障与地平线式 HUD。</p>
+              <span class="tag">Unity</span><span class="tag">C#</span><span class="tag">Post-Processing</span>
             </div>
-            <span class="view" data-t="detail">查看详情 ›</span>
+            <div class="project-actions">
+              <span class="view" data-t="detail">查看详情 ›</span>
+              <button class="try-button" type="button" data-t="try_now">立即试玩</button>
+            </div>
+          </article>
+
+          <article class="project reveal" data-c="game" data-p="8">
+            <div class="visual cover" style="--c:#84cc16;--img:url(covers/qingxi.png)" data-code="晴溪物语"><img class="project-cover" src="covers/qingxi.png" alt="晴溪物语项目封面" loading="lazy" decoding="async" width="1456" height="819"></div>
+            <div class="project-info">
+              <div class="meta">PIXEL FARM &amp; LIFE SIM</div>
+              <h3>晴溪物语</h3>
+              <p data-t="p_qingxi">基于 Unity 的二维像素农场生活 Demo，串联四季种植、居民委托、钓鱼、十层矿区、冶炼升级与战斗探索。</p>
+              <span class="tag">Unity 2D</span><span class="tag">C#</span><span class="tag">UGUI / TMP</span>
+            </div>
+            <div class="project-actions">
+              <span class="view" data-t="detail">查看详情 ›</span>
+              <button class="try-button" type="button" data-t="try_now">立即试玩</button>
+            </div>
           </article>
 
           <article class="project reveal" data-c="graphics" data-p="2">
@@ -1923,7 +1985,10 @@
               <p data-t="p3">基于 Unity URP 的着色器作品集，包含黑洞传送门、透明材质、海洋与太阳系四个主题场景。</p>
               <span class="tag">Unity URP</span><span class="tag">ShaderLab</span><span class="tag">Shader Graph</span>
             </div>
-            <span class="view" data-t="detail">查看详情 ›</span>
+            <div class="project-actions">
+              <span class="view" data-t="detail">查看详情 ›</span>
+              <button class="try-button" type="button" data-t="try_now">立即试玩</button>
+            </div>
           </article>
 
         </div>
@@ -2061,6 +2126,7 @@
       <div class="modal-heading">
         <h3 id="modalTitle" tabindex="-1" autofocus>Neural Room</h3>
         <div class="modal-desc-sub" id="modalSubtitle"></div>
+        <button class="try-button" id="modalTryButton" type="button" data-t="try_now">立即试玩</button>
       </div>
 
       <div class="specs-grid">
@@ -2079,6 +2145,14 @@
       </div>
     </div>
   </dialog>
+  <dialog id="downloadDialog" class="download-dialog" aria-labelledby="downloadTitle">
+    <button type="button" class="download-close" id="closeDownload" aria-label="关闭">×</button>
+    <h2 id="downloadTitle"></h2>
+    <p class="download-intro" id="downloadIntro"></p>
+    <div id="downloadFiles"></div>
+  </dialog>
+  <script src="downloads/config.js"></script>
+
 
   <script>
     /* 1. 双语字典 */
@@ -2105,6 +2179,9 @@
         p1: '基于 AHA/ERC 指南的 VR 心肺复苏与 AED 除颤实训系统，力学生理仿真联动教学与考核双模式评分。',
         p2: '基于 Unity 的拟真竞速沙盒：射线悬挂与轮胎侧偏力物理、四季抓地力联动、AI 雷达避障与地平线式 HUD。',
         p3: '基于 Unity URP 的着色器作品集，包含黑洞传送门、透明材质、海洋与太阳系四个主题场景。',
+        try_now: '立即试玩',
+        p_qingxi: '基于 Unity 的二维像素农场生活 Demo，串联四季种植、居民委托、钓鱼、十层矿区、冶炼升级与战斗探索。',
+        p_anatomy: '基于 Unity 的人体解剖学习与 CPR 训练系统，涵盖 61 项器官及相关结构、自由切割、抓取观察与学习测验。',
         p_ar: '基于 AR Foundation 的移动端 AR 战棋，平面检测、棋盘放置与卡牌识别联动。',
         p_temple: '基于 UE5 GAS 的第三人称动作 RPG，古代神庙场景下的能力与战斗系统。',
         p_vice: '开放都市中的坦克战斗，含载具驾驶、爆炸破坏与警方追捕玩法闭环。',
@@ -2162,6 +2239,9 @@
         p1: 'A VR CPR and AED defibrillation trainer built on AHA/ERC guidelines, with physiological simulation and dual teaching/exam scoring modes.',
         p2: 'A Unity racing sandbox: raycast suspension and tire slip-angle physics, season-linked grip, AI radar avoidance, and a Horizon-style HUD.',
         p3: 'A Unity URP shader showcase with four themed scenes: black hole and portal, transparent materials, ocean, and solar system.',
+        try_now: 'Try now',
+        p_qingxi: 'A Unity 2D pixel farm-life demo combining seasonal crops, resident requests, fishing, ten mine floors, smelting, tool upgrades, and combat exploration.',
+        p_anatomy: 'A Unity anatomy learning and CPR training system with 61 organ and related-structure entries, free cutting, grab-and-inspect interaction, and quizzes.',
         p_ar: 'A mobile AR tactics game on AR Foundation: plane detection, board placement, and card recognition.',
         p_temple: 'A third-person action RPG on UE5 GAS with ability and combat systems in an ancient temple.',
         p_vice: 'Open-city tank combat with vehicle driving, destruction, and a police-pursuit gameplay loop.',
@@ -2496,7 +2576,7 @@
         },
         videoSrc: 'videos/vicecity.mp4',
         cover: 'covers/vicecity.jpg',
-        bili: {aid: '117306545934645', bvid: 'BV1bhhv6oENq', cid: '42067953293'},
+        bili: {aid: '117484619372190', bvid: 'BV1UPnp6hEYf', cid: '42959176940'},
         specs: {
           platform: {zh: 'PC', en: 'PC'},
           engine: {zh: 'Unity 2020 LTS (URP)', en: 'Unity 2020 LTS (URP)'},
@@ -2599,6 +2679,172 @@
             }
           ]
         }
+      },
+      {
+        "id": 7,
+        "meta": "XR ANATOMY LEARNING",
+        "title": {
+          "zh": "解构生命 AnatomyXR",
+          "en": "AnatomyXR"
+        },
+        "subtitle": {
+          "zh": "人体解剖学习、自由切割与 CPR 急救训练的一体化 XR 交互系统",
+          "en": "An integrated XR system for anatomy learning, free cutting, and CPR training"
+        },
+        "videoSrc": "videos/anatomyxr.mp4",
+        "bili": {"aid": "117493813284959", "bvid": "BV1wSHw6PEoz", "cid": "43004265747"},
+        "cover": "covers/anatomyxr.png",
+        "specs": {
+          "platform": {
+            "zh": "Windows x64 / Quest / PICO",
+            "en": "Windows x64 / Quest / PICO"
+          },
+          "engine": {
+            "zh": "Unity 2022.3 · XRI · OpenXR",
+            "en": "Unity 2022.3 · XRI · OpenXR"
+          },
+          "role": {
+            "zh": "交互解剖与 CPR 模块整合",
+            "en": "Interactive anatomy & CPR module integration"
+          },
+          "benchmark": {
+            "zh": "Windows 启动检查 · Quest / PICO 包校验",
+            "en": "Windows launch checked · Quest / PICO packages validated"
+          }
+        },
+        "benchLabel": {
+          "zh": "交付验证",
+          "en": "DELIVERY VALIDATION"
+        },
+        "sections": {
+          "zh": [
+            {
+              "heading": "01 / 项目概述与技术选型",
+              "text": "解构生命 AnatomyXR 基于 Unity 2022.3 与 C# 开发，在统一菜单中整合人体解剖学习与 CPR 急救训练。采用 XR Interaction Toolkit 与 OpenXR，支持电脑演示，并已构建 Quest、PICO 独立测试包。"
+            },
+            {
+              "heading": "02 / 器官观察与结构交互",
+              "text": "提供全身系统显隐与 61 项器官及相关结构目录，支持器官定位、预设引导划切、内部结构选择、抓取摆放与归位。整体及单块缩放、透明观察和滑动剖面辅助观察；内部细节以已归档源模型为准。"
+            },
+            {
+              "heading": "03 / 自由切割与组织演示",
+              "text": "基于网格平面裁切、切面封口与碎片管理，实现任意位置和方向的逐刀平面切割、二次切割及多代碎片归位。局部形变、血滴和三针缝合用于教学演示，不代表真实软组织力学。"
+            },
+            {
+              "heading": "04 / 学习测验与 CPR 训练",
+              "text": "记录全目录观察进度，提供 17 个器官的结构辨认测验与本机学习存档。CPR 模块包含前置检查、胸外按压、气道、通气、AED 流程及训练报告。"
+            },
+            {
+              "heading": "05 / 来源管理与交付验证",
+              "text": "模型基于已归档的 Z-Anatomy 与 BodyParts3D 来源，保留结构身份及第三方许可。Windows 已完成构建与启动检查，Quest / PICO 已完成构建与包校验；头显交互、触觉与性能仍待实机验收。MR 透视、空间放置及裸手交互尚未完成。"
+            }
+          ],
+          "en": [
+            {
+              "heading": "01 / Overview & Tech Stack",
+              "text": "AnatomyXR combines anatomy learning and CPR training under one menu, built with Unity 2022.3 and C#. XR Interaction Toolkit and OpenXR support the interaction foundation. A desktop demo and standalone Quest / PICO test builds are available."
+            },
+            {
+              "heading": "02 / Anatomy & Structure Interaction",
+              "text": "Explore body systems and a catalog of 61 organ and related-structure entries. Guided dissection, structure selection, grabbing, placement, and reset support inspection, alongside scaling, transparency, and a sliding section view. Internal detail depends on the archived source models."
+            },
+            {
+              "heading": "03 / Free Cutting & Tissue Demonstrations",
+              "text": "Mesh-plane slicing, cut-surface capping, and fragment management support successive planar cuts at arbitrary positions and orientations, re-cutting, and restoring descendant fragments. Local deformation, blood drops, and three-stitch suturing are teaching demonstrations rather than realistic tissue mechanics."
+            },
+            {
+              "heading": "04 / Learning & CPR Training",
+              "text": "Track observation progress across the catalog, take structure-identification quizzes for 17 organs, and save learning records locally. The CPR module covers pre-checks, compressions, airway management, ventilation, AED workflow, and training reports."
+            },
+            {
+              "heading": "05 / Provenance & Delivery Validation",
+              "text": "Models use archived Z-Anatomy and BodyParts3D sources with structure identities and third-party notices retained. Windows passed build and launch checks; Quest / PICO passed build and package validation. Headset interaction, haptics, and performance await device testing. MR passthrough, spatial placement, and bare-hand interaction are not implemented."
+            }
+          ]
+        }
+      },
+      {
+        "id": 8,
+        "meta": "PIXEL FARM & LIFE SIM",
+        "title": {
+          "zh": "晴溪物语",
+          "en": "Qingxi Tales"
+        },
+        "subtitle": {
+          "zh": "从四季耕作到矿区探索，串联经营、生活与战斗的二维像素农场 Demo",
+          "en": "A 2D pixel farm-life demo connecting seasonal farming, daily life, and mine exploration"
+        },
+        "videoSrc": "videos/qingxi.mp4",
+        "bili": {"aid": "117493813221937", "bvid": "BV1kSHw6AEAF", "cid": "43004200681"},
+        "cover": "covers/qingxi.png",
+        "specs": {
+          "platform": {
+            "zh": "Windows x64",
+            "en": "Windows x64"
+          },
+          "engine": {
+            "zh": "Unity 2021.3 · 2D · C#",
+            "en": "Unity 2021.3 · 2D · C#"
+          },
+          "role": {
+            "zh": "农场玩法与系统实现",
+            "en": "Farm gameplay & systems implementation"
+          },
+          "benchmark": {
+            "zh": "Windows 构建与 Direct3D 11 启动检查",
+            "en": "Windows build & Direct3D 11 launch checked"
+          }
+        },
+        "benchLabel": {
+          "zh": "交付验证",
+          "en": "DELIVERY VALIDATION"
+        },
+        "sections": {
+          "zh": [
+            {
+              "heading": "01 / 项目概述与玩法循环",
+              "text": "晴溪物语是一款基于 Unity 2021.3 与 C# 的二维像素农场生活 Demo。通过劳动与探索获取资源，出售或交付换取金币，再购买种子、冶炼材料与升级工具，睡觉推进日期，形成连续的经营与探索循环。"
+            },
+            {
+              "heading": "02 / 动态农田与四季成长",
+              "text": "采用网格与字典管理动态耕地，按需创建地块，并以相邻掩码更新干湿土连接贴图。实现胡萝卜、土豆、番茄与小麦四种作物，涵盖翻土、播种、浇水、收获、番茄再生与换季枯萎；天气、洒水器和工具蓄力共同影响农事效率。"
+            },
+            {
+              "heading": "03 / 居民、钓鱼与矿区探索",
+              "text": "交易与居民委托连接库存、金币和奖励。钓鱼包含有效水域判定、咬钩与成败状态管理；十层矿区复用地下区域并重建楼层对象，串联矿石采集、冶炼、工具升级与史莱姆战斗。"
+            },
+            {
+              "heading": "04 / 世界通行与界面系统",
+              "text": "通过 WorldRegion、地形通行掩码与脚底碰撞组织室外和室内区域，房门与区域出口负责安全传送和相机切换。地图出口信息读取真实组件，配合背包、日历、制作、中文暂停菜单、四向动画与操作及环境音效。"
+            },
+            {
+              "heading": "05 / 存档与 Windows 交付",
+              "text": "使用 PlayerPrefs 统一保存日期、库存、动态农田、居民与矿区状态，读档先重建动态对象，再恢复状态和安全位置，并兼容旧布局迁移。已交付 Windows x64 程序，最近构建为 0 错误、3 警告，Direct3D 11 启动正常；完整打包版玩法仍需扩大实机验证。"
+            }
+          ],
+          "en": [
+            {
+              "heading": "01 / Overview & Gameplay Loop",
+              "text": "Qingxi Tales is a Unity 2021.3 and C# 2D pixel farm-life demo. Work and exploration produce resources to sell or deliver for coins, which fund seeds, smelting, and tool upgrades. Sleeping advances the date and connects the farming and exploration loops."
+            },
+            {
+              "heading": "02 / Dynamic Fields & Seasonal Crops",
+              "text": "A grid and dictionary create farm plots on demand, while neighbor masks update connected dry and wet soil sprites. Four crops—carrot, potato, tomato, and wheat—support tilling, sowing, watering, harvesting, tomato regrowth, and seasonal withering. Weather, sprinklers, and charged tools affect farming efficiency."
+            },
+            {
+              "heading": "03 / Residents, Fishing & Mining",
+              "text": "Trading and resident requests connect inventory, coins, and rewards. Fishing manages valid water, bite windows, and success or failure. Ten mine floors reuse one underground region with rebuilt floor objects, linking ore collection, smelting, tool upgrades, and slime combat."
+            },
+            {
+              "heading": "04 / World Navigation & Interfaces",
+              "text": "WorldRegion, terrain walkability masks, and foot-level collision organize outdoor and indoor areas. Doors and boundary exits handle safe travel and camera changes. Map exits read real components, complemented by inventory, calendar, crafting, a Chinese pause menu, four-direction animation, and action and ambient sounds."
+            },
+            {
+              "heading": "05 / Persistence & Windows Delivery",
+              "text": "PlayerPrefs stores dates, inventory, dynamic fields, resident state, and mining progress. Loading rebuilds dynamic objects before restoring state and safe positions, with migration for older layouts. A Windows x64 build was delivered with zero errors and three warnings and launched successfully on Direct3D 11; broader packaged gameplay testing remains necessary."
+            }
+          ]
+        }
       }
     ];
 
@@ -2641,6 +2887,7 @@
       updateVideoMessage();
       store.set('lang', l);
       updateMailLinks();
+      if (downloadDialog.open) renderDownloads();
       if (activeProjectId !== null) updateModalContent(activeProjectId);
     }
     document.querySelectorAll('[data-l]').forEach(b => {b.onclick = () => language(b.dataset.l);});
@@ -2806,11 +3053,58 @@
     document.querySelectorAll('.project').forEach(c => {
       c.tabIndex = 0;
       c.setAttribute('role', 'button');
-      c.onclick = () => openProjectModal(c.dataset.p);
+      c.onclick = (e) => { if (!e.target.closest('.try-button')) openProjectModal(c.dataset.p); };
       c.onkeydown = (e) => {
+        if (e.target !== c) return;
         if (e.key === 'Enter' || e.key === ' ') {e.preventDefault(); openProjectModal(c.dataset.p);}
       };
     });
+
+
+    /* 下载配置位于 downloads/config.js；文件由站点维护者自行添加。 */
+    const downloadDialog = document.getElementById('downloadDialog');
+    let downloadProjectId = null;
+    function renderDownloads() {
+      const en = currentLanguage === 'en';
+      const project = PROJECTS_DATA[downloadProjectId];
+      document.getElementById('downloadTitle').textContent = project.title[currentLanguage];
+      document.getElementById('downloadIntro').textContent = en ? 'Download and extract the entire ZIP or RAR archive. Run the Windows app or install the APK for your headset.' : '下载后完整解压 ZIP 或 RAR 文件，运行 Windows 程序，或安装对应头显的 APK。';
+      document.getElementById('closeDownload').setAttribute('aria-label', en ? 'Close' : '关闭');
+      const list = document.getElementById('downloadFiles');
+      list.replaceChildren();
+      const files = (window.PROJECT_DOWNLOADS || {})[downloadProjectId] || [];
+      const validFiles = files.filter(file => {
+        if (!file.url) return false;
+        try { return ['http:', 'https:', 'file:'].includes(new URL(file.url, document.baseURI).protocol); } catch { return false; }
+      });
+      if (!validFiles.length) {
+        const empty = document.createElement('p'); empty.className = 'download-empty';
+        empty.textContent = en ? 'The demo download is not available yet. Please check back later.' : '试玩包暂未上传，敬请期待。';
+        list.append(empty); return;
+      }
+      validFiles.forEach(file => {
+        const row = document.createElement('div'); row.className = 'download-item';
+        const info = document.createElement('div'); const name = document.createElement('strong');
+        name.textContent = file.platform || (en ? 'Demo' : '试玩包'); info.append(name);
+        if (file.size) { const size = document.createElement('small'); size.textContent = file.size; info.append(size); }
+        if (file.note) { const note = document.createElement('small'); note.textContent = typeof file.note === 'string' ? file.note : file.note[currentLanguage]; info.append(note); }
+        const link = document.createElement('a'); link.className = 'button small'; link.href = file.url;
+        link.setAttribute('download', ''); link.textContent = en ? 'Download' : '下载文件';
+        row.append(info, link); list.append(row);
+      });
+    }
+    document.querySelectorAll('.try-button').forEach(button => {
+      button.addEventListener('click', e => {
+        e.stopPropagation();
+        const card = button.closest('.project');
+        const id = card ? Number(card.dataset.p) : activeProjectId;
+        if (id === null || !PROJECTS_DATA[id]) return;
+        downloadProjectId = id;
+        renderDownloads(); downloadDialog.showModal();
+      });
+    });
+    document.getElementById('closeDownload').onclick = () => downloadDialog.close();
+    downloadDialog.addEventListener('click', e => { if (e.target === downloadDialog) { const r=downloadDialog.getBoundingClientRect(); if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom) downloadDialog.close(); } });
 
     /* 6. 复制邮箱 */
     const copyBtn = document.getElementById('copyMail');

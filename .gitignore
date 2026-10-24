@@ -1,0 +1,13 @@
+# 游戏安装包（统一使用夸克网盘等外链）
+downloads/*.rar
+downloads/*.zip
+
+# 高清原片母带备份与历史归档（网页未引用）
+hd_videos_for_release/
+_Baselines/
+old/
+
+# 临时与系统文件
+*.tmp
+.DS_Store
+Thumbs.db
