@@ -15,7 +15,7 @@ window.PROJECT_DOWNLOADS = {
     {
       "platform": "Windows x64 · 夸克网盘",
       "size": "5.08 GB",
-      "url": "https://pan.quark.cn/s/bf6ba2a23924",
+      "url": "https://pan.quark.cn/s/c684af5333cb",
       "note": {
         "zh": "完整 Windows 运行包。在网盘中下载 TempleAwakening.rar，解压后运行 GAS.exe。",
         "en": "Complete Windows build. Download TempleAwakening.rar from Quark Pan, extract all files, then run GAS.exe."
